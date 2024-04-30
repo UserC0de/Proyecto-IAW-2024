@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25.81 4.55" version="1.1" id="svg127">
+  <defs id="defs85">
+    <radialGradient id="Degradado_sin_nombre_6" cx="-937.35" cy="495.33" r=".15" gradientTransform="matrix(11.13 0 0 -11.13 10436.23 5515.57)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cfa9d0" id="stop4"/>
+      <stop offset="1" stop-color="#8b3b8c" id="stop6"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_2" cx="-935.44" cy="481.93" r=".19" gradientTransform="matrix(8.65 0 0 -8.65 8095.53 4171.95)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ddc3df" id="stop9"/>
+      <stop offset=".47" stop-color="#c188bb" id="stop11"/>
+      <stop offset="1" stop-color="#89388b" id="stop13"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_3" cx="-937.85" cy="494.06" r=".12" gradientTransform="matrix(10.81 0 0 -10.81 10137.77 5341.72)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a4d3f0" id="stop16"/>
+      <stop offset="1" stop-color="#44a1da" id="stop18"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_5" cx="-936.43" cy="482.12" r=".16" gradientTransform="matrix(8.68 0 0 -8.68 8133.73 4188.62)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbe7f9" id="stop26"/>
+      <stop offset=".5" stop-color="#86c7ee" id="stop28"/>
+      <stop offset="1" stop-color="#48a5dd" id="stop30"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_7" cx="-937.68" cy="490.43" r=".14" gradientTransform="matrix(10.19 0 0 -10.19 9558.06 4999.52)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6c6a9" id="stop33"/>
+      <stop offset=".54" stop-color="#ed8624" id="stop35"/>
+      <stop offset="1" stop-color="#e94e1b" id="stop37"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_7-2" cx="-935.1" cy="471.86" r=".17" gradientTransform="matrix(7.53 0 0 -7.53 7043.2 3554.25)" xlink:href="#Degradado_sin_nombre_7"/>
+    <radialGradient id="Degradado_sin_nombre_9" cx="-936.04" cy="483.67" r=".18" gradientTransform="matrix(9.05 0 0 -9.05 8473.8 4378.94)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c8dc91" id="stop46"/>
+      <stop offset=".3" stop-color="#afc924" id="stop48"/>
+      <stop offset="1" stop-color="#539f33" id="stop50"/>
+    </radialGradient>
+    <radialGradient id="Degradado_sin_nombre_10" cx="-933.87" cy="466.69" r=".19" gradientTransform="matrix(7.02 0 0 -7.02 6555.19 3275.94)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d5e297" id="stop53"/>
+      <stop offset=".24" stop-color="#afc924" id="stop55"/>
+      <stop offset="1" stop-color="#539f33" id="stop57"/>
+    </radialGradient>
+    <linearGradient id="Degradado_sin_nombre_4" x1="-926.29" y1="481.4" x2="-926.12" y2="481.56" gradientTransform="matrix(4.14 0 0 -8.6 3833.58 4144.87)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6577b9" id="stop21"/>
+      <stop offset="1" stop-color="#99b4dd" id="stop23"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_8" x1="-927.32" y1="469.61" x2="-927.17" y2="469.76" gradientTransform="matrix(4.23 0 0 -7.3 3923.83 3427.33)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ed694b" id="stop41"/>
+      <stop offset="1" stop-color="#e3401c" id="stop43"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_11" x1="-937.29" y1="390.23" x2="-937.11" y2="390" gradientTransform="matrix(9.66 0 0 -3.46 9055.73 1352.17)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aabcde" id="stop60"/>
+      <stop offset="1" stop-color="#4c5fa9" id="stop62"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_12" x1="-924.01" y1="465.5" x2="-923.83" y2="465.66" gradientTransform="matrix(3.56 0 0 -6.91 3291.26 3215.88)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e5dda5" id="stop65"/>
+      <stop offset="1" stop-color="#bfb757" id="stop67"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_13" x1="-925.74" y1="475.46" x2="-925.59" y2="475.64" gradientTransform="matrix(4.02 0 0 -7.85 3724.42 3734.35)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#aa98c9" id="stop70"/>
+      <stop offset="1" stop-color="#cabfde" id="stop72"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_14" x1="-936.83" y1="361.2" x2="-936.64" y2="361.02" gradientTransform="matrix(9.11 0 0 -2.91 8535.02 1052.41)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b2d1ef" id="stop75"/>
+      <stop offset="1" stop-color="#6ca5da" id="stop77"/>
+    </linearGradient>
+    <linearGradient id="Degradado_sin_nombre_15" x1="-935.47" y1="347.91" x2="-935.29" y2="347.72" gradientTransform="matrix(8.53 0 0 -2.72 7984.97 947.46)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#afcc43" id="stop80"/>
+      <stop offset="1" stop-color="#d7e398" id="stop82"/>
+    </linearGradient>
+    <style id="style2">
+      .cls-1{fill:#444}
+    </style>
+  </defs>
+  <g id="Capa_2" data-name="Capa 2">
+    <g id="Capa_1-2" data-name="Capa 1">
+      <path class="cls-1" d="M17.52 2a.68.68 0 00-.43-.15.43.43 0 00-.37.2 1.69 1.69 0 00-.09 1c.06.28.22.43.46.43a.6.6 0 00.45-.23l.21.25a.91.91 0 01-.67.28.82.82 0 01-.87-.78 1.44 1.44 0 01.28-1.25.81.81 0 01.6-.24.89.89 0 01.58.2zm1.93.14V3a.9.9 0 000 .25.41.41 0 00.16.27l-.26.24a.54.54 0 01-.24-.37.64.64 0 01-.62.38c-.3 0-.58-.21-.68-.67A1.49 1.49 0 0118 1.89a1 1 0 01.78-.35 1.26 1.26 0 01.67.17c.01.1-.01.29 0 .45zm-.63-.31a.54.54 0 00-.51.27 1.39 1.39 0 00-.08.95c.05.26.17.35.34.35a.55.55 0 00.48-.4V1.9a.49.49 0 00-.23-.05zm1.54 1.79a1.08 1.08 0 01-.13.61.75.75 0 01-.39.3l-.19-.25a.46.46 0 00.25-.22 1.45 1.45 0 00.1-.43v-2l.39-.08zm1.94-1.09a1.09 1.09 0 01-.86.25h-.27a2.29 2.29 0 000 .25.5.5 0 00.51.42.75.75 0 00.57-.23l.19.24a1 1 0 01-.8.3.9.9 0 01-.9-.76A1.4 1.4 0 0121 1.83a.83.83 0 01.65-.29.71.71 0 01.77.55.51.51 0 01-.12.44zm-.66-.7c-.26 0-.45.24-.47.66h.21c.33 0 .49 0 .57-.15a.25.25 0 00.05-.23.34.34 0 00-.36-.28zm2.17.17a.4.4 0 00-.15 0c-.17 0-.34.15-.47.43V3.7h-.39V2.28a1.87 1.87 0 000-.38.86.86 0 00-.07-.21l.27-.15a.64.64 0 01.11.25 1.49 1.49 0 010 .21.72.72 0 01.57-.45.48.48 0 01.18 0zm1.06 1.79A.88.88 0 0124 3c-.18-.82.19-1.45.89-1.45a.88.88 0 01.91.75c.17.79-.16 1.46-.9 1.46zm0-1.91c-.45 0-.58.6-.45 1.18a.46.46 0 00.47.43c.46 0 .57-.6.45-1.19a.46.46 0 00-.48-.46z" id="path87"/>
+      <path d="M2.3 1.74a.47.47 0 01.06.26 2.11 2.11 0 01-.78 1.33.73.73 0 01-1.13-.28c-.07-.19 0-.2-.07-.54S.1 2.22 0 2.05c-.15-.38.24-.72.6-.78.52-.09 1.54.17 1.67.47z" id="path89" fill="url(#Degradado_sin_nombre_6)"/>
+      <path d="M1.58 3.28A2.11 2.11 0 002.36 2a.47.47 0 00-.06-.21L.37 2.5c.12.34 0 .35.07.54a.73.73 0 001.13.23z" id="path91" fill="url(#Degradado_sin_nombre_2)"/>
+      <path d="M2.31 1.75c-.13-.3-1.16-.56-1.67-.47l-.18.05a2.49 2.49 0 001.85.42z" id="path93" fill="#5f307e"/>
+      <path d="M2.31 1.74a2.18 2.18 0 011.79.5.57.57 0 010 .88.75.75 0 01-.49.15 1.2 1.2 0 00-.41.11 2 2 0 00-.46.33.74.74 0 01-1.12-.42 1.66 1.66 0 01.69-1.55z" id="path95" fill="url(#Degradado_sin_nombre_3)"/>
+      <path d="M2.32 1.74a1.68 1.68 0 00-.73 1.55.57.57 0 000 .14A2.42 2.42 0 002.38 2a.65.65 0 00-.06-.24z" id="path97" fill="url(#Degradado_sin_nombre_4)"/>
+      <path d="M4.07 3.12a.59.59 0 000-.88 2.21 2.21 0 00-1.8-.5L3.1 3.4h.06a1 1 0 01.42-.11.86.86 0 00.49-.17z" id="path99" fill="url(#Degradado_sin_nombre_5)"/>
+      <path d="M2.3 1.74c-.19-.41.33-1.16.7-1.36A.8.8 0 014 .5c.11.13 0 .29.18.49s.31.27.4.39c.3.37 0 .78-.42.86a2.28 2.28 0 01-1.81-.5z" id="path101" fill="url(#Degradado_sin_nombre_7)"/>
+      <path d="M2.3 1.74l.86-.35L4 1h.12C4 .78 4.05.62 3.94.5A.78.78 0 003 .38c-.32.2-.84 1-.65 1.35z" id="path103" fill="url(#Degradado_sin_nombre_7-2)"/>
+      <path d="M3.1.31L3 .38c-.32.2-.84 1-.65 1.36A1.74 1.74 0 003.1.31z" id="path105" fill="url(#Degradado_sin_nombre_8)"/>
+      <path d="M1.55.34a1.07 1.07 0 00.31-.17.74.74 0 01.69-.17.55.55 0 01.45.37 1.43 1.43 0 01-.64 1.36 2 2 0 01-1.74-.47C.37 1 .57.65.81.52a.85.85 0 01.44-.11.83.83 0 00.3-.07z" id="path107" fill="url(#Degradado_sin_nombre_9)"/>
+      <path d="M3 .38C2.9.17 2.65.06 2.55 0a.76.76 0 00-.69.14 1 1 0 01-.28.16l.72 1.44A1.46 1.46 0 003 .38z" id="path109" fill="url(#Degradado_sin_nombre_10)"/>
+      <path d="M4.21 2.37a.35.35 0 00-.11-.13 2.18 2.18 0 00-1.79-.5 2.51 2.51 0 001.9.63z" id="path111" fill="url(#Degradado_sin_nombre_11)"/>
+      <path d="M3 .38c-.32.2-.84 1-.65 1.36A1.45 1.45 0 003 .38z" id="path113" fill="url(#Degradado_sin_nombre_12)"/>
+      <path d="M2.36 2a.47.47 0 00-.06-.21 1.69 1.69 0 00-.72 1.55A2.11 2.11 0 002.36 2z" id="path115" fill="url(#Degradado_sin_nombre_13)"/>
+      <path d="M4.1 2.24a2.18 2.18 0 00-1.79-.5 2.27 2.27 0 001.79.5z" id="path117" fill="url(#Degradado_sin_nombre_14)"/>
+      <path d="M2.3 1.74c-.13-.3-1.16-.56-1.67-.47a2.12 2.12 0 001.68.47z" id="path119" fill="url(#Degradado_sin_nombre_15)"/>
+      <path d="M5.58 3.77A.56.56 0 015 3.34 1.67 1.67 0 015 3V1.41a1.46 1.46 0 00-.11-.57V.76l.67-.21a2.1 2.1 0 01.1.67v1.59a2.27 2.27 0 000 .38c0 .05 0 .06.06.06h.07l.21.43v.02a.84.84 0 01-.37.07zm2.13 0a.9.9 0 01-.14-.2.85.85 0 01-.55.2.65.65 0 01-.7-.47 1.83 1.83 0 010-.35V1.57L7 1.44v1.42a1.51 1.51 0 000 .26.12.12 0 00.1.1.47.47 0 00.32-.22V1.58l.7-.14v1.67a.63.63 0 00.12.37l.07.08-.6.24zm1.75 0a1 1 0 01-1-.77 1.41 1.41 0 01.31-1.3 1 1 0 01.71-.26 1.06 1.06 0 01.69.26h.05l-.35.46h-.06A.46.46 0 009.52 2a.2.2 0 00-.18.09 1.34 1.34 0 00-.09.91.27.27 0 00.25.25.59.59 0 00.39-.25H10l.36.45h-.06a1.09 1.09 0 01-.84.33zm3.27-.06l-.9-1.24.76-1h-.91l-.44.74v-.8a2.12 2.12 0 00-.1-.81l-.7.21v.08a1.35 1.35 0 01.08.54v2.29h.72v-1l.63 1zm.14-2.17v2.18h.71V1.45zm3.06 1.77a.4.4 0 01-.14-.31v-.81-.55h-.05a1.79 1.79 0 00-.74-.17 1 1 0 00-.86.35 1.47 1.47 0 00-.21 1.25.8.8 0 00.82.71.69.69 0 00.51-.19.66.66 0 00.21.19l.53-.4-.07-.06zM15.08 3a.34.34 0 01-.28.26c-.06 0-.13 0-.17-.21a1.32 1.32 0 01.07-.83A.29.29 0 0115 2h.09zm-1.85-1.6a.43.43 0 01-.43-.4.42.42 0 01.43-.41.42.42 0 01.43.41.42.42 0 01-.43.36z" id="path121" fill="#e94e1b"/>
+      <ellipse class="cls-1" cx="20.18" cy="1" rx=".32" ry=".31" id="ellipse123"/>
+    </g>
+  </g>
+</svg>
