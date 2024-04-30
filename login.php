@@ -7,10 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casino LA CAMPIÑA</title>
   <script src="script.js"></script>
-  <link rel="stylesheet" href="Miestilos.css">
   <link rel="stylesheet" href="css/bootstrap.css">
 </head>
-  <body class="d-flex justify-content-center align-items-center vh-100">
+  <body class="d-flex justify-content-center align-items-center vh-100" style="background-image: url('fotos/casino.jpeg'); background-size: cover; background-position: center">
     <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem">
       <div class="d-flex justify-content-center">
         <img src="fotos/login-icon.svg" style="height: 7rem"/>

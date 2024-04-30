@@ -98,48 +98,81 @@
       </div>
     </div>
 
-    <a href="#" class="text-dark">
-      <div class="row row-cols-md-4 col-sm-6 mx-auto mt-4">
-        <div class="card border-light">
-          <img src="fotos/cardapuestas.png" class="card-img-top mx-auto" alt="..." style="max-width: 240px;">
-          <div class="card-body mx-auto p-0">
-            <img src="fotos/football-outline-circle.svg" alt="" class="card-text">
-            <p class="card-text fw-bold h5">APUESTAS</p>
-          </div>
+  <div class="container border">
+    <div class="row row-cols-md-4 row-cols-sm-6 m-5">
+        <div class="col p-4">
+            <a href="#" class="text-decoration-none">
+                <div class="bg-light rounded-4">
+                  <div class="d-flex justify-content-center">
+                    <img src="fotos/cardapuestas.png" alt="..." width="100%">
+                  </div>
+                  <div class="card-body">
+                      <div class="d-flex justify-content-center">
+                        <img src="fotos/football-outline-circle.svg" alt="" width="50%">
+                      </div>
+                        <div class="fw-bold h5 justify-content-center d-flex text-dark font-italic">
+                          <p>APUESTAS</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
 
-    <a href="#" class="text-dark">
-      <div class="card border-light">
-        <img src="fotos/cardcasino.png" class="card-img-top mx-auto" alt="..." style="max-width: 240px;">
-        <div class="card-body m-auto p-0">
-          <img src="fotos/roulette-outline-circle.svg" alt="" class="card-text">
-          <p class="card-text fw-bold h5">CASINO</p>
-        </div>
+        <div class="col p-4">
+          <a href="#" class="text-decoration-none">
+              <div class="bg-light rounded-4">
+                <div class="d-flex justify-content-center">
+                  <img src="fotos/cardcasino.png" alt="..." width="100%">
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                      <img src="fotos/card3_files/roulette-outline-circle.svg" alt="" width="50%">
+                    </div>
+                      <div class="fw-bold h5 justify-content-center d-flex text-dark font-italic">
+                        <p>CASINO</p>
+                      </div>
+                  </div>
+              </div>
+          </a>
       </div>
-    </a>
 
-    <a href="#" class="text-dark">
-      <div class="card border-light">
-        <img src="fotos/cardslots.png" class="card-img-top mx-auto" alt="..." style="max-width: 240px;">
-        <div class="card-body mx-auto p-0">
-          <img src="fotos/slot-outline-circle.svg" alt="" style="max-width: 100px;" class="card-text">
-          <p class="card-text fw-bold h5">SLOTS</p>
-        </div>
-      </div>
-    </a>
-
-    <a href="#" class="text-dark">
-      <div class="card border-light">
-        <img src="fotos/cardblog.png" class="card-img-top mx-auto" alt="..." style="max-width: 240px;">
-        <div class="card-body mx-auto p-0">
-          <img src="fotos/Blog-icon.svg" alt="" style="max-width: 100px;" class="card-text">
-          <p class="card-text fw-bold h5">BLOG</p>
-        </div>
-      </div>
-    </a>
+      <div class="col p-4">
+        <a href="#" class="text-decoration-none">
+            <div class="bg-light rounded-4">
+              <div class="d-flex justify-content-center">
+                <img src="fotos/cardslots.png" alt="..." width="100%">
+              </div>
+              <div class="card-body">
+                  <div class="d-flex justify-content-center">
+                    <img src="fotos/slot-outline-circle.svg" alt="" width="50%">
+                  </div>
+                    <div class="fw-bold h5 justify-content-center d-flex text-dark font-italic">
+                      <p>BLACKJACK</p>
+                    </div>
+                </div>
+            </div>
+        </a>
     </div>
 
+    <div class="col p-4">
+      <a href="#" class="text-decoration-none">
+          <div class="bg-light rounded-4">
+            <div class="d-flex justify-content-center">
+              <img src="fotos/cardblog.png" alt="..." width="100%">
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                  <img src="fotos/Blog-icon.svg" alt="" width="50%">
+                </div>
+                  <div class="fw-bold h5 justify-content-center d-flex text-dark font-italic">
+                    <p>BLOG</p>
+                  </div>
+              </div>
+          </div>
+      </a>
+  </div>
+    </div>
+</div>
   </main>
 
   <!--Aquí se configura el footer-->
