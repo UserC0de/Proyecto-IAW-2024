@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="Miestilos.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 Mostrar u ocultar contraseña
@@ -155,6 +154,9 @@ Mostrar u ocultar contraseña
                                     </div>
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div data-mdb-input-init class="form-outline input-group">
+                                            <div class="input-group-text bg-info">
+                                                <img src="fotos/password-icon.svg" style="height: 1rem"/>
+                                              </div>
                                             <input type="password" name="password" id="txtPassword"
                                                 class="form-control" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Mínimo 8 caráteres, 1 mayuscula y 1 número" required />
                                             <div class="input-group-append">
@@ -168,6 +170,9 @@ Mostrar u ocultar contraseña
 
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div data-mdb-input-init class="form-outline input-group">
+                                            <div class="input-group-text bg-info">
+                                                <img src="fotos/password-icon.svg" style="height: 1rem"/>
+                                              </div>
                                             <input type="password" name="password2" id="txtPassword2"
                                                 class="form-control" required />
                                             <div class="input-group-append">
@@ -176,7 +181,7 @@ Mostrar u ocultar contraseña
                                                         class="fa fa-eye-slash icon"></span> </button>
                                             </div>
                                         </div>
-                                        <label class="form-label">Contraseña</label>
+                                        <label class="form-label">Repite la contraseña</label>
                                     </div>
 
                                     <div class="form-check">
