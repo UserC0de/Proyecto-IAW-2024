@@ -17,7 +17,7 @@
 <body class="container">
     <header>
       <div class="p-2 container">
-        <nav class="navbar navbar-expand text-bg-warning fw-bold rounded-4 border">
+        <nav class="navbar navbar-expand text-bg-warning fw-bold rounded-4">
           <div class="container-fluid text-uppercase">
             <a class="navbar-brand" href="index.html">
               <img src="fotos/xdxd.png" alt="" class="px-3">
@@ -241,8 +241,8 @@
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © 2020 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">Lacampina.es</a>
+      © 2024 Copyright:
+      <a class="text-white text-decoration-none" href="index.php">Lacampina.es</a>
     </div>
   </footer>
 

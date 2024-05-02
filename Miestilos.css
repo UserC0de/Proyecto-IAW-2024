@@ -2,9 +2,3 @@
 [class *= 'text-bg-warning'] {
     background-image: linear-gradient(266deg, #f80,#ea5b0c 53%);
 }
-
-body {
-    background-image: url('fotos/casino.jpeg');
-    background-size: cover; /* Para ajustar la imagen al tamaño del contenedor */
-    background-position: center; /* Para centrar la imagen */
-  }
