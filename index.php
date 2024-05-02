@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 
-<body class="container">
+<body class="container" style="background-color: #333333;">
     <header>
       <div class="p-2 container">
         <nav class="navbar navbar-expand text-bg-warning fw-bold rounded-4">
@@ -50,11 +50,11 @@
       </div>
   </header>
 
-  <main class="mt-5 border">
+  <main class="mt-5">
     <!-- Tarjetas -->
-    <div class="row row-cols border">
-      <div class="d-flex col border">
-        <div class="card text-white border-light">
+    <div class="row row-cols">
+      <div class="d-flex col">
+        <div class="card text-white">
           <div>
             <img src="fotos/card1.png" class="card-img" alt="...">
           </div>
@@ -67,8 +67,8 @@
       </div>
 
       <div class="col">
-        <div class="card text-white border-light">
-          <img src="fotos/card2.png" class="card-img" alt="..." style="max-width: 600px;">
+        <div class="card text-white">
+          <img src="fotos/card2.png" class="card-img" alt="..." >
           <div class="card-img-overlay">
             <h5 class="card-title h4 text-light fw-bold mt-4 mb-lg-3 mx-3">Increíbles cuotas en</h5>
             <p class="card-text h1 fw-bold text-muted mx-3">FÚTBOL</p>
@@ -78,8 +78,8 @@
       </div>
 
       <div class="col">
-        <div class="card text-white border-light">
-          <img src="fotos/card3.png" class="card-img" alt="..." style="max-width: 600px;">
+        <div class="card text-white">
+          <img src="fotos/card3.png" class="card-img" alt="...">
           <div class="card-img-overlay">
             <h5 class="card-title h4 fw-bold mt-4 mx-3">Toda la previa de</h5>
             <p class="card-text h1 fw-bold mx-3 text-muted">ROLAND GARROS</p>
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Tarjetas de servicios -->
-    <div class="border border-5 border-dark">
+    <div class="">
       <div class="row row-cols-md-4 row-cols-sm-6 p-5">
         <div class="col p-4">
           <a href="#" class="text-decoration-none">
@@ -168,7 +168,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="text-white text-center text-lg-start bg-dark">
+  <footer class="text-white text-center text-lg-start bg-info rounded-4">
     <div class="container p-4">
       <div class="row mt-4">
         <div class="col-lg-4 col-md-12 mb-4 mb-md-0">

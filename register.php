@@ -51,13 +51,13 @@
 </script>
 
 
-<body style="background-image: url('fotos/casino.jpeg');">
+<body style="background-image: url('fotos/casino.jpeg'); background-size: cover; background-position: center;">
     <section class="vh-100">
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-lg-9 col-xl-19">
                     <div
-                        class="card shadow-2-strong card-registration border border-dark rounded-4 bg-dark bg-gradient">
+                        class="card shadow-2-strong card-registration rounded-4 bg-dark bg-gradient">
                         <div class="card-body p-md-5 text-light">
                             <div class="d-flex justify-content-end">
                                 <a href="index.php" class="btn btn-info text-light">Volver al inicio</a>
