@@ -12,7 +12,7 @@ require 'conexion.php';
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 
-<body class="container vh-100 d-flex align-items-center justify-content-center">
+<body class="container vh-100 d-flex align-items-center justify-content-center" style="background-image: url('fotos/casino.jpeg'); background-size: cover; background-position: center">
     <div class="row bg-dark p-5 rounded-4">
         <?php
         require 'conexion.php';
@@ -165,5 +165,4 @@ require 'conexion.php';
 
 </body>
 </div>
-
 </html>
