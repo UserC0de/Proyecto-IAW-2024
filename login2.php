@@ -44,10 +44,8 @@
                         header("location: index.php");
                         exit();
                     } else {
-                        echo '<div class="alert alert-danger" role="alert">Tu usuario ha sido bloqueado por un Administrador. Consulta con Soporte</div>';
-                        echo "<div class='d-flex justify-content-center'>";
-                        echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-                        echo "</div>";
+                        header("location: usuario_bloq.php");
+                        exit();
                     }
 
                     } else {
