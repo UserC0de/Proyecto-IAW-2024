@@ -11,8 +11,6 @@
 
 <body>
     <?php
-    // Verificar si se envió el formulario
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Recuperar el nombre de usuario y la contraseña del formulario
         $usuario = $_POST["usuario"];
         $password = $_POST["password"];
@@ -21,7 +19,7 @@
         require 'conexion.php';
 
         // Consultar la contraseña correspondiente al nombre de usuario ingresado en la tabla passwords
-        $sql = "SELECT id_usuario, contrasena FROM passwords WHERE id_usuario IN (SELECT id_usuario FROM usuarios WHERE nickname = '$usuario')";
+        $sql = "SELECT u.id_usuario, p.contrasena, u.estado, u.rol_usuario FROM usuarios u, passwords p WHERE u.id_usuario=p.id_usuario AND u.nickname LIKE '$usuario'";
         $resultado = $mysqli->query($sql);
 
         if ($resultado) {
@@ -30,12 +28,16 @@
                 $row = $resultado->fetch_assoc();
                 $id_usuario = $row['id_usuario'];
                 $contrasena_hash = $row['contrasena'];
+                $estado = $row['estado'];
+                $rol_usuario = $row['rol_usuario'];
 
                 // Verificar si la contraseña ingresada coincide con la contraseña almacenada en la base de datos
                 if (password_verify($password, $contrasena_hash)) {
                     // Iniciar sesión y redirigir al usuario a la página de inicio
                     session_start();
                     $_SESSION['id_usuario'] = $id_usuario;
+                    $_SESSION['estado'] = $estado;
+                    $_SESSION['rol'] = $rol_usuario;
                     header("location: index.php");
                     exit();
                 } else {
@@ -53,7 +55,6 @@
 
         // Cerrar la conexión a la base de datos
         $mysqli->close();
-    }
     ?>
 
 </body>
