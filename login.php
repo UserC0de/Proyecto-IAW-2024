@@ -41,6 +41,8 @@
         <div>Don't have an account?</div>
         <a href="register.php" class="text-decoration-none text-info fw-semibold">Register</a>
       </div>
+      <div class="p-2">
+        <a href="index.php" class="text-decoration-none d-flex justify-content-end"><div class="btn btn-info d-flex text-white fw-semibold">Volver al inicio</div></a>
     </div>
   </form>
 </body>
