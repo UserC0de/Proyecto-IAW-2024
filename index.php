@@ -14,27 +14,28 @@ session_start();
   <script src="script.js"></script>
   <link rel="stylesheet" href="Miestilos.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
-<body class="container" style="background-color: #333333;">
+<body class="container pt-3" style="background-color: #333333;">
   <header>
-    <div class="p-2 container">
-      <nav class="navbar navbar-expand-lg navbar-light text-bg-warning fw-bold rounded-4">
-        <a class="navbar-brand" href="#">
-          <img src="fotos/xdxd.png" alt="" class="px-3">
-        </a>
-        <div class="display-5 text-light">
-          <h1 class="fw-bold m-auto ms-3">LA CAMPIÑA</h1>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-light text-bg-warning rounded-4">
+      <a class="navbar-brand" href="index.php">
+        <img src="fotos/xdxd.png" class="mx-3">
+      </a>
+      <div class="display-5 text-light">
+        <h1 class="fw-bold m-auto ms-3">LA CAMPIÑA</h1>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <div class="mx-5">
+          <ul class="navbar-nav nav-tabs fw-bold">
             <li class="nav-item">
-              <a class="nav-link active text-light" aria-current="page" href="#">Apuestas</a>
+              <a class="nav-link text-light" href="#">Apuestas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="#">Ruleta</a>
@@ -42,46 +43,54 @@ session_start();
             <li class="nav-item">
               <a class="nav-link text-light" href="#">Blackjack</a>
             </li>
-            <li class="nav-item dropdown">
-              <?php
-              // Verificar si hay una sesión iniciada
-              if (isset($_SESSION['id_usuario'])) {
-                // Recuperar el ID de usuario de la sesión
-                $id_usuario = $_SESSION['id_usuario'];
-
-                // Consultar la información del usuario y su saldo desde la base de datos
-                $sql = "SELECT nickname, saldo FROM usuarios WHERE id_usuario = '$id_usuario'";
-                $resultado = $mysqli->query($sql);
-
-                if ($resultado) {
-                  // Verificar si se encontraron resultados
-                  if ($resultado->num_rows > 0) {
-                    $row = $resultado->fetch_assoc();
-                    $nickname = $row['nickname'];
-                    $saldo = $row['saldo'];
-                    // Mostrar el nombre de usuario y su saldo con iconos
-                    echo "<li class='nav-item dropdown'>";
-                    echo "<a class='nav-link dropdown-toggle text-light' href='#'  role='button' data-bs-toggle='dropdown' aria-expanded='false'>$saldo &euro; <i class='fas fa-user'></i> $nickname</a>";
-                    echo "<ul class='dropdown-menu' aria-labelledby='navbarDropdown'>";
-                    echo "<li><a class='dropdown-item' href='cerrar_sesion.php'>Cerrar Sesión</a></li>";
-                    echo "</ul>";
-                    echo "</li>";
-                  }
-                }
-
-                // Cerrar la conexión a la base de datos
-                $mysqli->close();
-              } else {
-                // Si no hay sesión iniciada, mostrar los botones de Login y Register
-                echo '<a href="login.php"><button type="button" class="btn btn-light p-2 me-2 fw-bold text-warning">Entrar</button></a>';
-                echo '<a href="register.php"><button type="button" class="btn btn-light p-2 me-2 fw-bold text-warning">Registrarse</button></a>';
-              }
-              ?>
-            </li>
           </ul>
         </div>
-      </nav>
-    </div>
+        <?php
+        // Verificar si hay una sesión iniciada
+        if (isset($_SESSION['id_usuario'])) {
+          // Recuperar el ID de usuario de la sesión
+          $id_usuario = $_SESSION['id_usuario'];
+
+          // Consultar la información del usuario y su saldo desde la base de datos
+          $sql = "SELECT nickname, saldo FROM usuarios WHERE id_usuario = '$id_usuario'";
+          $resultado = $mysqli->query($sql);
+          if ($resultado) {
+            // Verificar si se encontraron resultados
+            if ($resultado) {
+              // Verificar si se encontraron resultados
+              if ($resultado->num_rows > 0) {
+                $row = $resultado->fetch_assoc();
+                $nickname = $row['nickname'];
+                $saldo = $row['saldo'];
+                // Mostrar el nombre de usuario y su saldo con iconos
+                echo '<div class="mx-3">';
+                echo "<div class='nav-item dropdown'>";
+                echo "<a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$saldo &euro; <i class='fas fa-user'></i> $nickname</a>";
+                echo '<ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
+                    </ul>
+                  </div>';
+                echo '</div>';
+              }
+            }
+          }
+
+          // Cerrar la conexión a la base de datos
+          $mysqli->close();
+        } else {
+          // Si no hay sesión iniciada, mostrar los botones de Login y Register
+          echo '<div class="m-2">';
+          echo '<a href="login.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Entrar</button></a>';
+          echo '<a href="register.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Registrarse</button></a>';
+          echo '</div>';
+        }
+        ?>
+      </div>
+    </nav>
   </header>
 
 
@@ -266,7 +275,7 @@ session_start();
             <a href="#!" class="text-reset">Legal</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Contáctanos</a>
+            <a href="contacto.php" class="text-reset">Contáctanos</a>
           </p>
         </div>
       </div>
@@ -278,6 +287,10 @@ session_start();
       <a class="text-white text-decoration-none" href="index.php">Lacampina.es</a>
     </div>
   </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
