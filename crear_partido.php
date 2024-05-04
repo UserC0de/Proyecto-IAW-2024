@@ -92,47 +92,97 @@ session_start();
     <main>
         <div class="container">
             <div class="d-flex justify-content-center">
-                <p class="h1 fw-bold p-4 text-white">GESTIÓN DE PATIDOS</p>
+                <p class="h1 fw-bold p-4 text-white">CREAR PARTIDOS</p>
             </div>
             <div class="bg-light rounded-4 p-5">
-                <div class="d-flex justify-content-center p-2">
-                    <a href="crear_partido.php"><button type="button" class="btn btn-success">Crear partido</button></a>
-                </div>
-                <div class="border border-dark rounded-4 p-2">
-                    <table class="table table-striped caption-top">
-                        <caption>Lista de partidos</caption>
-                        <thead>
-                            <tr class="bg-info text-center">
-                                <th scope="col">Competicion</th>
-                                <th scope="col">Jugador Visitante</th>
-                                <th scope="col">Cuota Visitante</th>
-                                <th scope="col">Jugador Local</th>
-                                <th scope="col">Cuota Local</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Hora</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                <form action="crear_partido2.php" method="POST">
+                    <div class="d-flex justify-content-end">
+                        <a href="gestion_partidos.php" class="btn btn-info text-light">Volver</a>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3 mb-4">
+                            <div class="input-group">
+                                <div class="input-group-text bg-dark bg-gradient">
+                                    <img src="fotos/username-icon.svg" style="height: 1rem" />
+                                </div>
+                                <input class="form-control  bg-light" type="text" name="jug_visitante" required />
+                            </div>
+                            <label class="form-label">Jugador Visitante</label>
+                        </div>
+                        <div class="col-md-1 mb-4">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="text" name="cuota_visitante" class="form-control bg-light" placeholder="1.50" required />
+                                <label class="form-label">Cuota</label>
+                            </div>
+                        </div>
+                    </div>
 
-                                    while ($fila = $resultado2->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>$fila[competicion]</td>";
-                                        echo "<td class='text-center'>$fila[jugador_visitante]</td>";
-                                        echo "<td class='text-center'>$fila[cuota_visitante]</td>";
-                                        echo "<td class='text-center'>$fila[jugador_local]</td>";
-                                        echo "<td class='text-center'>$fila[cuota_local]</td>";
-                                        echo "<td class='text-center'>$fila[fecha]</td>";
-                                        echo "<td class='text-center'>$fila[hora]</td>";
-                                        echo "<td class='text-center'><a href='editar_partido.php?id=$fila[id_partido]'><button type='button' class='btn btn-warning'>Editar</button></td>";
-                                        echo "<td class='text-center'><a href='eliminar_partido.php?id=$fila[id_partido]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
-                                        echo "</tr>";
-                                    }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3 mb-4">
+                            <div class="input-group">
+                                <div class="input-group-text bg-dark bg-gradient">
+                                    <img src="fotos/username-icon.svg" style="height: 1rem" />
+                                </div>
+                                <input class="form-control bg-light" type="text" name="jug_local" required />
+                            </div>
+                            <label class="form-label">Jugador Local</label>
+                        </div>
+                        <div class="col-md-1 mb-4">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="text" name="cuota_local" class="form-control bg-light" placeholder="1.50" required />
+                                <label class="form-label">Cuota</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-2 mb-4 d-flex align-items-center">
+                            <div data-mdb-input-init class="form-outline datepicker w-100">
+                                <input type="date" class="form-control" name="fecha" required />
+                                <label class="form-label">Fecha</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1 mb-4 pb-2">
+                            <div data-mdb-input-init class="form-outline">
+                                <input type="time" name="hora" class="form-control" required />
+                                <label class="form-label">Hora</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-center">
+                            <select name="competencia" required>
+                                <option value="Abierto de Australia">Abierto de Australia (Australian Open)</option>
+                                <option value="Roland Garros">Roland Garros (Abierto de Francia, French Open)</option>
+                                <option value="Wimbledon">Wimbledon (Campeonato de Wimbledon, The Championships)</option>
+                                <option value="Abierto de Estados Unidos">Abierto de Estados Unidos (US Open)</option>
+                                <option value="ATP Tour Finals">ATP Tour Finals</option>
+                                <option value="WTA Tour Championships">WTA Tour Championships</option>
+                                <option value="Masters 1000">Masters 1000</option>
+                                <option value="Masters 500">Masters 500</option>
+                                <option value="ATP Tour 250">ATP Tour 250</option>
+                                <option value="WTA Premier Mandatory">WTA Premier Mandatory</option>
+                                <option value="WTA Premier 5">WTA Premier 5</option>
+                                <option value="WTA Premier">WTA Premier</option>
+                                <option value="Copa Hopman">Copa Hopman</option>
+                                <option value="ATP Cup">ATP Cup</option>
+                                <option value="Laver Cup">Laver Cup</option>
+                                <option value="Copa Davis">Copa Davis (Masculina)</option>
+                                <option value="Billie Jean King Cup">Billie Jean King Cup (Femenina)</option>
+                                <option value="Copa Fed">Copa Fed (Femenina)</option>
+                                <option value="Copa ATP">Copa ATP (Anteriormente Copa del Mundo por Equipos)</option>
+                                <option value="Copa Masters">Copa Masters (Anteriormente Copa de Maestros)</option>
+                                <option value="Abierto de Madrid">Abierto de Madrid</option>
+                            </select>
+                            <label class="form-label select-label">Elige una competición</label>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 d-flex justify-content-center">
+                        <input data-mdb-button-init data-mdb-ripple-init class="btn btn-success" type="submit" value="Crear partido" />
+                    </div>
+                </form>
             </div>
+        </div>
     </main>
 </body>
 <?php
