@@ -39,30 +39,38 @@
                     $_SESSION['id_usuario'] = $id_usuario;
                     $_SESSION['estado'] = $estado;
                     $_SESSION['rol'] = $rol_usuario;
-                    header("location: index.php");
-                    exit();
+
+                    if ($estado === "A") {
+                        header("location: index.php");
+                        exit();
+                    } else {
+                        echo '<div class="alert alert-danger" role="alert">Tu usuario ha sido bloqueado por un Administrador. Consulta con Soporte</div>';
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                        echo "</div>";
+                    }
+
+                    } else {
+                        // Contraseña incorrecta
+                        echo '<div class="alert alert-danger" role="alert">Contraseña incorrecta.</div>';
+                        echo "<div class='d-flex justify-content-center'>";
+                        echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                        echo "</div>";
+                    }
                 } else {
-                    // Contraseña incorrecta
-                    echo '<div class="alert alert-danger" role="alert">Contraseña incorrecta.</div>';
+                    // Usuario no encontrado
+                    echo '<div class="alert alert-danger" role="alert">El nombre de usuario ingresado no existe.</div>';
                     echo "<div class='d-flex justify-content-center'>";
                     echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                     echo "</div>";
                 }
             } else {
-                // Usuario no encontrado
-                echo '<div class="alert alert-danger" role="alert">El nombre de usuario ingresado no existe.</div>';
+                // Error en la consulta SQL
+                echo '<div class="alert alert-danger" role="alert">Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.</div>';
                 echo "<div class='d-flex justify-content-center'>";
                 echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                 echo "</div>";
             }
-        } else {
-            // Error en la consulta SQL
-            echo '<div class="alert alert-danger" role="alert">Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.</div>';
-            echo "<div class='d-flex justify-content-center'>";
-            echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-            echo "</div>";
-        }
-
         // Cerrar la conexión a la base de datos
         $mysqli->close();
         ?>

@@ -66,30 +66,32 @@ session_start();
 
               if ($rol_usuario === "admin") {
                 // Mostrar el nombre de usuario y su saldo con iconos
+                                echo '<div class="mx-3">';
+                echo "<div class='nav-item dropdown'>";
+                echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
+                echo '<ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li><a class="dropdown-item" href="#">Gestión de Usuarios</a></li>
+                      <li><a class="dropdown-item" href="#">Gestión de Partidos</a></li>
+                      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                      <li><a class="dropdown-item" href="#">Soporte</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
+                    </ul>
+                  </div>';
+              } else {
+                echo '</div>';
                 echo '<div class="mx-3">';
                 echo "<div class='nav-item dropdown'>";
                 echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                 echo '<ul class="dropdown-menu">
                                       <li><a class="dropdown-item" href="#">Perfil</a></li>
-                                      <li><a class="dropdown-item" href="#">Panel Admin</a></li>
-                                      <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                                      <li><a class="dropdown-item" href="#">Monedero</a></li>
                                       <li><hr class="dropdown-divider"></li>
                                       <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                                     </ul>
                                   </div>';
-              } else {
-                echo '<div class="mx-3">';
-                echo "<div class='nav-item dropdown'>";
-                echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
-                echo '<ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Perfil</a></li>
-                      <li><a class="dropdown-item" href="#">Mis apuestas</a></li>
-                      <li><a class="dropdown-item" href="#">Monedero</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
-                    </ul>
-                  </div>';
-                echo '</div>';
               }
             }
           }
