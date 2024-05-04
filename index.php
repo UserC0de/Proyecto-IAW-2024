@@ -73,7 +73,7 @@ session_start();
                   echo '<ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Perfil</a></li>
                       <li><a class="dropdown-item" href="#">Gestión de Usuarios</a></li>
-                      <li><a class="dropdown-item" href="#">Gestión de Partidos</a></li>
+                      <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
                       <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
                       <li><a class="dropdown-item" href="#">Soporte</a></li>
                       <li><hr class="dropdown-divider"></li>
@@ -310,7 +310,6 @@ session_start();
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
