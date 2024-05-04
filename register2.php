@@ -74,7 +74,7 @@ require 'conexion.php';
             echo '<div class="alert alert-danger" role="alert">Debes tener al menos 18 años para registrarte.</div>';
             $error = true;
         }
-        // Ejemplo de uso:
+
         $id_usuario = generarNumeroAleatorio($mysqli);
 
         if (!$id_usuario) {

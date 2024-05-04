@@ -111,7 +111,7 @@ session_start();
                         </div>
                         <div class="col-md-1 mb-4">
                             <div data-mdb-input-init class="form-outline">
-                                <input type="text" name="cuota_visitante" class="form-control bg-light" placeholder="1.50" required />
+                                <input type="number" name="cuota_visitante" class="form-control bg-light" placeholder="1.50" required step="0.01" min="1" max="3"/>
                                 <label class="form-label">Cuota</label>
                             </div>
                         </div>
@@ -123,13 +123,13 @@ session_start();
                                 <div class="input-group-text bg-dark bg-gradient">
                                     <img src="fotos/username-icon.svg" style="height: 1rem" />
                                 </div>
-                                <input class="form-control bg-light" type="text" name="jug_local" required />
+                                <input class="form-control bg-light" type="text" name="jug_local" required/>
                             </div>
                             <label class="form-label">Jugador Local</label>
                         </div>
                         <div class="col-md-1 mb-4">
                             <div data-mdb-input-init class="form-outline">
-                                <input type="text" name="cuota_local" class="form-control bg-light" placeholder="1.50" required />
+                                <input type="number" name="cuota_local" class="form-control bg-light" placeholder="1.50" required step="0.01" min="1" max="3"/>
                                 <label class="form-label">Cuota</label>
                             </div>
                         </div>
