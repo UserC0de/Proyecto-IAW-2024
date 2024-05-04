@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 
-<body>
-    <?php
+<body class="container vh-100 d-flex align-items-center justify-content-center" style="background-image: url('fotos/casino.jpeg'); background-size: cover; background-position: center">
+    <div class="row bg-dark p-5 rounded-4">
+        <?php
         // Recuperar el nombre de usuario y la contraseña del formulario
         $usuario = $_POST["usuario"];
         $password = $_POST["password"];
@@ -43,20 +44,30 @@
                 } else {
                     // Contraseña incorrecta
                     echo '<div class="alert alert-danger" role="alert">Contraseña incorrecta.</div>';
+                    echo "<div class='d-flex justify-content-center'>";
+                    echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                    echo "</div>";
                 }
             } else {
                 // Usuario no encontrado
                 echo '<div class="alert alert-danger" role="alert">El nombre de usuario ingresado no existe.</div>';
+                echo "<div class='d-flex justify-content-center'>";
+                echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                echo "</div>";
             }
         } else {
             // Error en la consulta SQL
             echo '<div class="alert alert-danger" role="alert">Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.</div>';
+            echo "<div class='d-flex justify-content-center'>";
+            echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+            echo "</div>";
         }
 
         // Cerrar la conexión a la base de datos
         $mysqli->close();
-    ?>
+        ?>
 
 </body>
+</div>
 
 </html>
