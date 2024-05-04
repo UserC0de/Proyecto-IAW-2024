@@ -52,24 +52,39 @@ session_start();
           $id_usuario = $_SESSION['id_usuario'];
 
           // Consultar la información del usuario y su saldo desde la base de datos
-          $sql = "SELECT nickname, saldo FROM usuarios WHERE id_usuario = '$id_usuario'";
+          $sql = "SELECT nickname, saldo, estado, rol_usuario FROM usuarios WHERE id_usuario = '$id_usuario'";
           $resultado = $mysqli->query($sql);
+
           if ($resultado) {
             // Verificar si se encontraron resultados
-            if ($resultado) {
-              // Verificar si se encontraron resultados
-              if ($resultado->num_rows > 0) {
-                $row = $resultado->fetch_assoc();
-                $nickname = $row['nickname'];
-                $saldo = $row['saldo'];
+            if ($resultado->num_rows > 0) {
+              $row = $resultado->fetch_assoc();
+              $nickname = $row['nickname'];
+              $saldo = $row['saldo'];
+              $estado = $row['estado'];
+              $rol_usuario = $row['rol_usuario'];
+
+              if ($rol_usuario === "admin") {
                 // Mostrar el nombre de usuario y su saldo con iconos
                 echo '<div class="mx-3">';
                 echo "<div class='nav-item dropdown'>";
-                echo "<a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$saldo &euro; <i class='fas fa-user'></i> $nickname</a>";
+                echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                 echo '<ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                      <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                      <li><a class="dropdown-item" href="#">Panel Admin</a></li>
+                                      <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                                      <li><hr class="dropdown-divider"></li>
+                                      <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
+                                    </ul>
+                                  </div>';
+              } else {
+                echo '<div class="mx-3">';
+                echo "<div class='nav-item dropdown'>";
+                echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
+                echo '<ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li><a class="dropdown-item" href="#">Mis apuestas</a></li>
+                      <li><a class="dropdown-item" href="#">Monedero</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                     </ul>
@@ -78,7 +93,6 @@ session_start();
               }
             }
           }
-
           // Cerrar la conexión a la base de datos
           $mysqli->close();
         } else {
