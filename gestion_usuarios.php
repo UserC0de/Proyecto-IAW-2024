@@ -73,7 +73,7 @@ session_start();
                                     echo "<div class='nav-item dropdown'>";
                                     echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                                     echo '<ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Perfil</a></li>
+                      <li><a class="dropdown-item" href="#">Perfil</a>  </li>
                       <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                       <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
                       <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
@@ -90,7 +90,7 @@ session_start();
     <main>
         <div class="container">
             <div class="d-flex justify-content-center">
-                <p class="h1 fw-bold p-4 text-white">GESTIÓN DE PATIDOS</p>
+                <p class="h1 fw-bold p-4 text-white">GESTIÓN DE USUARIOS</p>
             </div>
             <div class="bg-light rounded-4 p-5">
                 <div class="d-flex justify-content-center p-2">
@@ -100,57 +100,55 @@ session_start();
                 <?php
 
     // Número de partidos por página
-    $partidos_por_pagina = 5;
+    $usuarios_por_pagina = 5;
 
     // Calcular el total de partidos
-    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM partidos where resultado IS NULL";
-    $resultado_total_partidos = $mysqli->query($sql_total_partidos);
-    $fila_total_partidos = $resultado_total_partidos->fetch_assoc();
-    $total_partidos = $fila_total_partidos['total_partidos'];
-    $total_paginas = ceil($total_partidos / $partidos_por_pagina);
+    $sql_total_usuarios = "SELECT COUNT(*) AS total_usuarios FROM usuarios";
+    $resultado_total_usuarios = $mysqli->query($sql_total_usuarios);
+    $fila_total_usuarios = $resultado_total_usuarios->fetch_assoc();
+    $total_usuarios = $fila_total_usuarios['total_usuarios'];
+    $total_paginas = ceil($total_usuarios / $usuarios_por_pagina);
 
     // Obtener el número de página actual
     $pagina_actual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
     // Calcular el offset para la consulta SQL
-    $offset = ($pagina_actual - 1) * $partidos_por_pagina;
+    $offset = ($pagina_actual - 1) * $usuarios_por_pagina;
 
     // Realizar la consulta SQL con limit y offset
-    $sql_partidos = "SELECT p.id_partido, p.competicion, p.jugador_visitante, c.cuota_visitante, p.jugador_local, c.cuota_local, p.fecha, p.hora
-                        FROM partidos p, cuotas c 
-                            where p.id_partido=c.id_partido
-                                and p.resultado IS NULL
-                                ORDER BY p.fecha 
-                                    LIMIT $offset, $partidos_por_pagina";
-    $resultado_partidos = $mysqli->query($sql_partidos);
+    $sql_usuarios = "SELECT id_usuario, nickname, nombre, apellido, correo, saldo, estado, rol_usuario
+                        FROM usuarios
+                            ORDER BY nombre, saldo
+                                LIMIT $offset, $usuarios_por_pagina";
+    $resultado_usuarios = $mysqli->query($sql_usuarios);
 
     // Generar la tabla de partidos
     echo '<table class="table table-striped caption-top">';
-    echo '<caption>Lista de partidos pendientes</caption>';
+    echo '<caption>Lista total de usuarios</caption>';
     echo '<thead>';
     echo '<tr class="bg-info bg-gradient text-center">';
-    echo '<th scope="col">Competicion</th>';
-    echo '<th scope="col">Jugador Visitante</th>';
-    echo '<th scope="col">Cuota Visitante</th>';
-    echo '<th scope="col">Jugador Local</th>';
-    echo '<th scope="col">Cuota Local</th>';
-    echo '<th scope="col">Fecha</th>';
-    echo '<th scope="col">Hora</th>';
+    echo '<th scope="col">Nickname</th>';
+    echo '<th scope="col">Nombre</th>';
+    echo '<th scope="col">Apellido</th>';
+    echo '<th scope="col">Correo</th>';
+    echo '<th scope="col">Saldo</th>';
+    echo '<th scope="col">Estado</th>';
+    echo '<th scope="col">Rol</th>';
     echo '</tr>';
     echo '</thead>';
     echo '<tbody>';
 
-    while ($fila = $resultado_partidos->fetch_assoc()) {
+    while ($fila = $resultado_usuarios->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>$fila[competicion]</td>";
-        echo "<td class='text-center'>$fila[jugador_visitante]</td>";
-        echo "<td class='text-center'>$fila[cuota_visitante]</td>";
-        echo "<td class='text-center'>$fila[jugador_local]</td>";
-        echo "<td class='text-center'>$fila[cuota_local]</td>";
-        echo "<td class='text-center'>$fila[fecha]</td>";
-        echo "<td class='text-center'>$fila[hora]</td>";
-        echo "<td class='text-center'><a href='editar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-warning'>Editar</button></td>";
-        echo "<td class='text-center'><a href='eliminar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
+        echo "<td><a class='text-dark' href='perfil_usuario.php?id_usuario=$fila[id_usuario]'>$fila[nickname]</td>";
+        echo "<td class='text-center'>$fila[nombre]</td>";
+        echo "<td class='text-center'>$fila[apellido]</td>";
+        echo "<td class='text-center'>$fila[correo]</td>";
+        echo "<td class='text-center'>$fila[saldo]</td>";
+        echo "<td class='text-center'>$fila[estado]</td>";
+        echo "<td class='text-center'>$fila[rol_usuario]</td>";
+        echo "<td class='text-center'><a href='editar_usuario.php?id_usuario=$fila[id_usuario]'><button type='button' class='btn btn-warning'>Editar</button></td>";
+        echo "<td class='text-center'><a href='eliminar_usuario.php?id_usuario=$fila[id_usuario]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
         echo "</tr>";
     }
 

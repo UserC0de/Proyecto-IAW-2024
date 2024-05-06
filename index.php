@@ -72,7 +72,7 @@ session_start();
                   echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                   echo '<ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="#">Perfil</a></li>
-                      <li><a class="dropdown-item" href="#">Gestión de Usuarios</a></li>
+                      <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                       <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
                       <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
                       <li><a class="dropdown-item" href="#">Soporte</a></li>
