@@ -80,8 +80,6 @@ require 'conexion.php'; // Incluir el archivo de conexiónP
         exit();
     }
     ?>
-    <P></P>
-
 </body>
 
 </html>
