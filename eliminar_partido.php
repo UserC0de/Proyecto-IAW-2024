@@ -1,5 +1,12 @@
 <?php
-require 'conexion.php'; // Incluir el archivo de conexiónP
+require 'conexion.php'; // Incluir el archivo de conexión
+// Verificar si se ha iniciado sesión y si el usuario tiene el rol de administrador
+session_start();
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    // Si no tiene el rol de administrador, redirigir a algún lugar o mostrar un mensaje de error
+    header("Location: https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=Duran");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
