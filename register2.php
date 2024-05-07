@@ -162,7 +162,7 @@ require 'conexion.php';
             echo "</div>";
         }
         ?>
-
+    </div>
 </body>
-</div>
+
 </html>

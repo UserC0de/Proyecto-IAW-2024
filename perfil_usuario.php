@@ -74,7 +74,7 @@ session_start();
                 <div class="mx-5">
                     <ul class="navbar-nav nav-tabs fw-bold">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Apuestas</a>
+                            <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Ruleta</a>
@@ -169,7 +169,7 @@ session_start();
                             <div class="d-flex justify-content-center pb-3">
                                 <a href="gestion_usuarios.php" class="btn btn-info text-light">Gestión de usuarios</a>
                             </div>
-                            <form action="register2.php" method="POST">
+                            <form action="perfil2.php" method="POST">
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">

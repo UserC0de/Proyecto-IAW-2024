@@ -36,7 +36,7 @@ session_start();
                 <div class="">
                     <ul class="navbar-nav fw-bold">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" href="#">Apuestas</a>
+                            <a class="nav-link active text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Ruleta</a>

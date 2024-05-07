@@ -48,7 +48,7 @@ $fila = $resultado->fetch_assoc();
                 <div class="mx-5">
                     <ul class="navbar-nav nav-tabs fw-bold">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Apuestas</a>
+                            <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Ruleta</a>
