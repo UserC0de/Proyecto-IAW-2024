@@ -38,7 +38,7 @@ session_start();
               <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="#">Ruleta</a>
+              <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="#">Blackjack</a>

@@ -121,8 +121,8 @@ require 'conexion.php';
 
             // Si no se encontraron errores, proceder con el insert
             if (!$error) {
-                $sql = "INSERT INTO usuarios (id_usuario, nombre, apellido, nickname, dni, direccion, pais, ciudad, cod_postal, edad, genero, correo, telefono, saldo, estado, rol_usuario) 
-                        VALUES ('$id_usuario', '$nombre', '$apellido', '$usuario', '$dni', '$direccion', '$pais', '$ciudad', '$cod_postal', '$edad_str', '$genero', '$email', '$telefono', '100', 'A', 'usuario')";
+                $sql = "INSERT INTO usuarios (id_usuario, nombre, apellido, nickname, dni, direccion, pais, ciudad, cod_postal, fecha_nac, genero, correo, telefono, saldo, estado, rol_usuario) 
+                        VALUES ('$id_usuario', '$nombre', '$apellido', '$usuario', '$dni', '$direccion', '$pais', '$ciudad', '$cod_postal', '$fecha_nac', '$genero', '$email', '$telefono', '100', 'A', 'usuario')";
                 $resultado = $mysqli->query($sql);
 
                 if ($resultado) {

@@ -37,7 +37,7 @@ session_start();
                 <div class="mx-5">
                     <ul class="navbar-nav nav-tabs fw-bold">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="apuestas.phpç">Apuestas</a>
+                            <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">Ruleta</a>
@@ -105,9 +105,9 @@ session_start();
                                     <option value="A">Activo</option>
                                     <option value="B">Bloqueado</option>
                                 </select>
-                                <select class="form-control" name="filtro_rol">
                             </div>
                             <div class="col-md-2">
+                                <select class="form-control" name="filtro_rol">
                                     <option value="">Todos los roles</option>
                                     <option value="usuario">Usuario</option>
                                     <option value="admin">Admin</option>

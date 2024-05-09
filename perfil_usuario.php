@@ -106,7 +106,7 @@ session_start();
                     $genero = $row['genero'];
                     $ciudad = $row['ciudad'];
                     $cod_postal = $row['cod_postal'];
-                    $edad = $row['edad'];
+                    $fecha_nac = $row['fecha_nac'];
                     $telefono = $row['telefono'];
                     $saldo = $row['saldo'];
                     $estado = $row['estado'];
@@ -122,7 +122,7 @@ session_start();
                       <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
                       <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                       <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
-                      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                      <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
                       <li><a class="dropdown-item" href="#">Soporte</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
@@ -148,7 +148,7 @@ session_start();
                                 $genero = $row['genero'];
                                 $ciudad = $row['ciudad'];
                                 $cod_postal = $row['cod_postal'];
-                                $edad = $row['edad'];
+                                $fecha_nac = $row['fecha_nac'];
                                 $telefono = $row['telefono'];
                                 $saldo = $row['saldo'];
                                 $estado = $row['estado'];
@@ -169,22 +169,23 @@ session_start();
                             <div class="d-flex justify-content-center pb-3">
                                 <a href="gestion_usuarios.php" class="btn btn-info text-light">Gestión de usuarios</a>
                             </div>
-                            <form action="perfil2.php" method="POST">
+                            <form action="perfil_guardar.php" method="POST">
+                                <input type="hidden" name="id_usuario" value="<?php echo $id_usuario ?>">
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="nombre" class="form-control" value="<?php echo $nombre ?>" required />
+                                            <input type="text" name="nombre" class="form-control" value="<?php echo $nombre ?>" />
                                             <label class="form-label">Nombre</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="apellido" class="form-control" value="<?php echo $apellido ?>" required />
+                                            <input type="text" name="apellido" class="form-control" value="<?php echo $apellido ?>" />
                                             <label class="form-label">Apellido</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" required />
+                                            <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" />
                                             <label class="form-label">Nickname</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline">
@@ -195,28 +196,28 @@ session_start();
 
                                     <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="direccion" class="form-control" value="<?php echo $direccion ?>" required />
+                                            <input type="text" name="direccion" class="form-control" value="<?php echo $direccion ?>" />
                                             <label class="form-label">Dirección</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="pais" class="form-control" value="<?php echo $pais ?>" required />
+                                            <input type="text" name="pais" class="form-control" value="<?php echo $pais ?>" />
                                             <label class="form-label">Pais</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="ciudad" class="form-control" value="<?php echo $ciudad ?>" required />
+                                            <input type="text" name="ciudad" class="form-control" value="<?php echo $ciudad ?>" />
                                             <label class="form-label">Ciudad</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="cod_postal" class="form-control" value="<?php echo $cod_postal ?>" required />
+                                            <input type="text" name="cod_postal" class="form-control" value="<?php echo $cod_postal ?>" />
                                             <label class="form-label">Código Postal</label>
                                         </div>
                                     </div>
@@ -225,14 +226,15 @@ session_start();
                                 <div class="row">
                                     <div class="col-md-6 mb-4 d-flex align-items-center">
                                         <div data-mdb-input-init class="form-outline datepicker w-100">
-                                            <input type="text" name="fecha_nac" class="form-control" value="<?php echo $edad ?>" required />
-                                            <label class="form-label">Edad</label>
+                                            <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>" />
+                                            <label class="form-label">Fecha de Nacimiento
+                                            </label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 mb-4">
                                         <!-- Categoría -->
-                                        <select class="form-control" aria-label="Default select" name="genero" required>
+                                        <select class="form-control" aria-label="Default select" name="genero">
                                             <option value="Masculino" <?php if ($genero == "Masculino") echo " selected"; ?>>Hombre</option>
                                             <option value="Femenino" <?php if ($genero == "Femenino") echo " selected"; ?>>Mujer</option>
                                         </select>
@@ -244,7 +246,7 @@ session_start();
                                 <div class="row">
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="email" name="email" class="form-control" value="<?php echo $correo ?>" required />
+                                            <input type="email" name="email" class="form-control" value="<?php echo $correo ?>" />
                                             <label class="form-label">Email</label>
                                         </div>
                                     </div>
@@ -252,7 +254,7 @@ session_start();
                                     <div class="col-md-6 mb-4 pb-2">
 
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="tel" name="telefono" class="form-control" pattern="[0-9]{9}" title="El formato del teléfono no es válido. Debe contener 9 números." value="<?php echo $telefono ?>" required />
+                                            <input type="tel" name="telefono" class="form-control" pattern="[0-9]{9}" title="El formato del teléfono no es válido. Debe contener 9 números." value="<?php echo $telefono ?>" />
                                             <label class="form-label">Número de teléfono</label>
                                         </div>
 
@@ -262,7 +264,7 @@ session_start();
                                             <div class="input-group-text bg-info">
                                                 <img src="fotos/password-icon.svg" style="height: 1rem" />
                                             </div>
-                                            <input type="password" name="password" id="txtPassword" class="form-control" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Mínimo 8 caráteres, 1 mayuscula y 1 número" required />
+                                            <input type="password" name="password" id="txtPassword" class="form-control" pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Mínimo 8 caráteres, 1 mayuscula y 1 número" />
                                             <div class="input-group-append">
                                                 <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                                             </div>
@@ -275,7 +277,7 @@ session_start();
                                             <div class="input-group-text bg-info">
                                                 <img src="fotos/password-icon.svg" style="height: 1rem" />
                                             </div>
-                                            <input type="password" name="password2" id="txtPassword2" class="form-control" required />
+                                            <input type="password" name="password2" id="txtPassword2" class="form-control" />
                                             <div class="input-group-append">
                                                 <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword2()"> <span class="fa fa-eye-slash icon"></span> </button>
                                             </div>
@@ -316,7 +318,8 @@ session_start();
                     <div class="d-flex justify-content-end pb-3">
                         <a href="index.php" class="btn btn-info text-light">Volver</a>
                     </div>
-                    <form action="register2.php" method="POST">
+                    <form action="perfil_guardar.php" method="POST">
+                        <input type="hidden" name="id_usuario" value="<?php echo $id_usuario ?>">
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div data-mdb-input-init class="form-outline">
@@ -331,11 +334,11 @@ session_start();
 
                             <div class="col-md-6 mb-4">
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" disabled required />
+                                    <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" required />
                                     <label class="form-label">Nickname</label>
                                 </div>
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>" disabled required />
+                                    <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>" required />
                                     <label class="form-label">DNI</label>
                                 </div>
                             </div>
@@ -372,8 +375,8 @@ session_start();
                         <div class="row">
                             <div class="col-md-6 mb-4 d-flex align-items-center">
                                 <div data-mdb-input-init class="form-outline datepicker w-100">
-                                    <input type="text" name="fecha_nac" class="form-control" value="<?php echo $edad ?>" disabled required />
-                                    <label class="form-label">Edad</label>
+                                    <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>" required />
+                                    <label class="form-label">Fecha de Nacimiento</label>
                                 </div>
                             </div>
 
@@ -391,7 +394,7 @@ session_start();
                         <div class="row">
                             <div class="col-md-6 mb-4 pb-2">
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="email" name="email" class="form-control" value="<?php echo $correo ?>" disabled required />
+                                    <input type="email" name="email" class="form-control" value="<?php echo $correo ?>"  required />
                                     <label class="form-label">Email</label>
                                 </div>
                             </div>

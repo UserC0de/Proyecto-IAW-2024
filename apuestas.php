@@ -104,7 +104,7 @@ if (!isset($_SESSION['id_usuario'])) {
     <main>
         <div class="container">
             <div class="d-flex justify-content-center">
-                <p class="h1 fw-bold p-4 text-white">APUESTAS</p>
+                <p class="h1 fw-bold p-4 text-white">PARTIDOS TENIS</p>
             </div>
             <div class="bg-light rounded-4 p-5">
                 <div class="border border-dark rounded-4 p-2">

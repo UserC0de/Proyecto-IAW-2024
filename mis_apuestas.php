@@ -165,7 +165,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
                         $premio = $fila['cuota'] * $fila['monto'];
 
-                        $premio_si_cancela = $fila['monto'] * 0.40;
+                        $premio_si_cancela = $fila['monto'] * 0.4173;
                         echo "<tr>";
                         echo "<td>$competicion</td>";
                         echo "<td class='text-center'>$jugador_visitante</td>";
@@ -176,7 +176,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         echo "<td class='text-center'>$gana</td>";
                         echo "<td class='text-center text-success fw-bold small'>$premio €</td>";
                         echo "<td class='text-center'>$fila[fecha]</td>";
-                        echo "<td class='text-center><a href='eliminar_apuesta.php?id_apuesta=$fila[id_apuesta]'><button type='button' class='btn btn-danger text-dark btn-sm border w-100'><div>Cancelar <div>[$premio_si_cancela €]</div></div></button></td>";
+                        echo "<td class='text-center'><a href='eliminar_apuesta.php?id_apuesta=$fila[id_apuesta]'><button type='button' class='btn btn-danger text-dark btn-sm border w-100'><div>Cancelar <div>[$premio_si_cancela €]</div></div></button></td>";
                         echo "</tr>";
                     }
 
