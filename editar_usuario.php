@@ -111,7 +111,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
                     $genero = $row['genero'];
                     $ciudad = $row['ciudad'];
                     $cod_postal = $row['cod_postal'];
-                    $edad = $row['edad'];
+                    $fecha_nac = $row['fecha_nac'];
                     $telefono = $row['telefono'];
                     $saldo = $row['saldo'];
                     $estado = $row['estado'];
@@ -153,7 +153,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
                                 $genero = $row['genero'];
                                 $ciudad = $row['ciudad'];
                                 $cod_postal = $row['cod_postal'];
-                                $edad = $row['edad'];
+                                $fecha_nac = $row['fecha_nac'];
                                 $telefono = $row['telefono'];
                                 $saldo = $row['saldo'];
                                 $estado = $row['estado'];

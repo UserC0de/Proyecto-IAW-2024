@@ -10,6 +10,7 @@ if (!isset($_SESSION['id_usuario'])) {
         header("location: usuario_bloq.php");
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +30,17 @@ if (!isset($_SESSION['id_usuario'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <script>
-    function enviarDatos(dato, idBoton) {
+    // Espera a que la página se cargue completamente
+    window.onload = function() {
+        // Elimina los parámetros GET de la URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+    };
+
+    function enviarDatos(dato, idBoton, color) {
         var campoOculto = document.getElementById('datos_seleccionados');
         var boton = document.getElementById(idBoton);
-        if (boton.classList.contains('btn-success')) {
+        if (boton.classList.contains('btn-info')) {
             // Si el botón ya está seleccionado, lo deseleccionamos y eliminamos el dato
             campoOculto.value = campoOculto.value.split(',').filter(item => item !== dato).join(',');
         } else {
@@ -43,8 +51,8 @@ if (!isset($_SESSION['id_usuario'])) {
                 campoOculto.value += ',' + dato;
             }
         }
-        boton.classList.toggle('btn-success');
-        boton.classList.toggle('border');
+        boton.classList.toggle('btn-info');
+        boton.classList.toggle('px-3');
     }
 </script>
 
@@ -76,6 +84,7 @@ if (!isset($_SESSION['id_usuario'])) {
                 </div>
                 <?php
                 $id_usuario = $_SESSION['id_usuario'];
+                // Verificar si se han recibido los datos del formulario de apuest
                 // Consultar la información del usuario y su saldo desde la base de datos
                 $sql = "SELECT nickname, saldo, estado, rol_usuario FROM usuarios WHERE id_usuario = '$id_usuario'";
                 $resultado = $mysqli->query($sql);
@@ -115,6 +124,7 @@ if (!isset($_SESSION['id_usuario'])) {
                                 </div>
                             </div>';
                     }
+
                 ?>
             </div>
         </nav>
@@ -122,193 +132,316 @@ if (!isset($_SESSION['id_usuario'])) {
     <main>
         <div class="container">
             <div class="d-flex justify-content-center">
-                <p class="h1 fw-bold p-4 text-white">PARTIDOS TENIS</p>
+                <p class="h1 fw-bold p-4 text-white">RULETA</p>
             </div>
             <div class="bg-light rounded-4 p-5">
+                <?php
+                    $haydatos = false;
+                    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['monto'])) {
+                        $datos_seleccionados = $_GET['datos_seleccionados'];
+                        $numero_aleatorio = mt_rand(0, 36);
+
+                        if (empty($datos_seleccionados)) {
+                            $haydatos = false;
+                        } else {
+                            $haydatos = true;
+                        }
+                        $array_datos = explode(',', $datos_seleccionados);
+                        $sql = "INSERT INTO ruleta (numero_aleatorio) VALUES ($numero_aleatorio)";
+                        $resultado = $mysqli->query($sql);
+                    } else {
+                        $numero_aleatorio = NULL;
+                    }
+
+                    $sql_numeros = "SELECT numero_aleatorio from ruleta order by id desc limit 50";
+                    $resultado_numeros = $mysqli->query($sql_numeros);
+
+                    echo "Historial números: ";
+                    while ($fila = $resultado_numeros->fetch_assoc()) {
+                        echo $fila['numero_aleatorio'], " ";
+                    }
+
+                    $numero_rojo = false;
+                    $numero_ = false;
+                    // Determinar el color del número apostado
+                    if ($numero_aleatorio == 1 || $numero_aleatorio == 3 || $numero_aleatorio == 5 || $numero_aleatorio == 9 || $numero == 7 || $numero == 12 || $numero == 14 || $numero == 18 || $numero == 16 || $numero == 19 || $numero == 21 || $numero == 23 || $numero == 25 || $numero == 27 || $numero == 30 || $numero == 32 || $numero == 34 || $numero == 36) {
+                        $color = "rojo";
+                    } else {
+                        $color = "negro";
+                    }
+
+                    // Verificar si se ha apostado al rojo y/o al negro
+                    if ($color == "rojo") {
+                        $numero_rojo = true;
+                    } else {
+                        $numero_negro = true;
+                    }
+                ?>
                 <div class="border border-dark rounded-4 p-2">
+                    <?php
+                    echo "<div class='d-flex justify-content-center'>";
+                    echo "<h2 class='fw-bold display-4'>$numero_aleatorio</h2>";
+                    echo "</div>";
+                    ?>
                     <div class="table-responsive">
                         <form id="formulario" action="ruleta.php" method="get">
-                            <table class="table text-center">
-                                <tbody>
-                                    <tr>
-                                        <input type="hidden" id="datos_seleccionados" name="datos_seleccionados">
-                                        <td class="table-success"></td>
-                                        <td class="table-danger">
-                                            <div class="btn btn-primary" id="boton3" onclick="enviarDatos('3', 'boton3')">3</div>
-                                        </td>
-                                        <td style="background-color:#424242">
-                                            <div class="btn btn-primary" id="boton6" onclick="enviarDatos('6', 'boton6')">6</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton9" onclick="enviarDatos('9','boton9')">9</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton12" onclick="enviarDatos('12','boton12')">12</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton15" onclick="enviarDatos('15','boton15')">15</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton18" onclick="enviarDatos('18','boton18')">18</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton21" onclick="enviarDatos('21','boton21')">21</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton24" onclick="enviarDatos('24','boton24')">24</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton27" onclick="enviarDatos('27','boton27')">27</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton30" onclick="enviarDatos('30','boton30')">30</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton33" onclick="enviarDatos('33','boton33')">33</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton36" onclick="enviarDatos('36','boton36')">36</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-success">
-                                            <div class="btn btn-primary" id="boton0" onclick="enviarDatos('0', 'boton0')">0</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton2" onclick="enviarDatos('2','boton2')">2</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton5" onclick="enviarDatos('5','boton5')">5</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton8" onclick="enviarDatos('8','boton8')">8</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton11" onclick="enviarDatos('11','boton11')">11</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton14" onclick="enviarDatos('14','boton14')">14</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton17" onclick="enviarDatos('17','boton17')">17</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton20" onclick="enviarDatos('20','boton20')">20</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton23" onclick="enviarDatos('23','boton23')">23</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton26" onclick="enviarDatos('26','boton26')">26</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton29" onclick="enviarDatos('29','boton29')">29</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton32" onclick="enviarDatos('32','boton32')">32</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton35" onclick="enviarDatos('35','boton35')">35</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-success"></td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton1" onclick="enviarDatos('1','boton1')">1</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton4" onclick="enviarDatos('4','boton4')">4</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton7" onclick="enviarDatos('7','boton7')">7</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton10" onclick="enviarDatos('10','boton10')">10</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton13" onclick="enviarDatos('13','boton13')">13</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton16" onclick="enviarDatos('16','boton16')">16</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton19" onclick="enviarDatos('19','boton19')">19</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton22" onclick="enviarDatos('22','boton22')">22</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton25" onclick="enviarDatos('25','boton25')">25</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton28" onclick="enviarDatos('28','boton28')">28</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton31" onclick="enviarDatos('31','boton31')">31</div>
-                                        </td>
-                                        <td>
-                                            <div class="btn btn-primary" id="boton34" onclick="enviarDatos('34','boton34')">34</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="form-group col-md-1 mb-3">
-                                <label>Apuesta:</label>
-                                <input type="number" name="monto" class="form-control" step="0.001" min="0" max="50" required>
+                            <div class="border border-dark rounded border-3 d-flex justify-content-center">
+                                <table class="table table-borderless text-center mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <input type="hidden" id="datos_seleccionados" name="datos_seleccionados">
+                                            <td style="background-color: #5bb957;"></td>
+                                            <td style="background-color: #ff5252" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton3" onclick="enviarDatos('3', 'boton3')">3</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton6" onclick="enviarDatos('6', 'boton6')">6</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton9" onclick="enviarDatos('9','boton9')">9</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton12" onclick="enviarDatos('12','boton12')">12</div>
+                                            </td>
+                                            <td style="background-color:#424242" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton15" onclick="enviarDatos('15','boton15')">15</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton18" onclick="enviarDatos('18','boton18')">18</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton21" onclick="enviarDatos('21','boton21')">21</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton24" onclick="enviarDatos('24','boton24')">24</div>
+                                            </td>
+                                            <td style="background-color: #ff5252" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton27" onclick="enviarDatos('27','boton27')">27</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton30" onclick="enviarDatos('30','boton30')">30</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton33" onclick="enviarDatos('33','boton33')">33</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton36" onclick="enviarDatos('36','boton36')">36</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #5bb957;">
+                                                <div class="btn fs-4 border text-white" id="boton0" onclick="enviarDatos('00','boton0')">0</div>
+                                            </td>
+                                            <td style="background-color:#424242" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton2" onclick="enviarDatos('2','boton2')">2</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton5" onclick="enviarDatos('5','boton5')">5</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton8" onclick="enviarDatos('8','boton8')">8</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton11" onclick="enviarDatos('11','boton11')">11</div>
+                                            </td>
+                                            <td style="background-color: #ff5252" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton14" onclick="enviarDatos('14','boton14')">14</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton17" onclick="enviarDatos('17','boton17')">17</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton20" onclick="enviarDatos('20','boton20')">20</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton23" onclick="enviarDatos('23','boton23')">23</div>
+                                            </td>
+                                            <td style="background-color:#424242" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton26" onclick="enviarDatos('26','boton26')">26</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton29" onclick="enviarDatos('29','boton29')">29</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton32" onclick="enviarDatos('32','boton32')">32</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton35" onclick="enviarDatos('35','boton35')">35</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: #5bb957;">
+                                            <td style="background-color: #ff5252" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton1" onclick="enviarDatos('1','boton1')">1</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton4" onclick="enviarDatos('4','boton4')">4</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton7" onclick="enviarDatos('7','boton7')">7</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton10" onclick="enviarDatos('10','boton10')">10</div>
+                                            </td>
+                                            <td style="background-color:#424242" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton13" onclick="enviarDatos('13','boton13')">13</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton16" onclick="enviarDatos('16','boton16')">16</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton19" onclick="enviarDatos('19','boton19')">19</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton22" onclick="enviarDatos('22','boton22')">22</div>
+                                            </td>
+                                            <td style="background-color: #ff5252" class="border-start border-dark">
+                                                <div class="btn fs-4 border text-white" id="boton25" onclick="enviarDatos('25','boton25')">25</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton28" onclick="enviarDatos('28','boton28')">28</div>
+                                            </td>
+                                            <td style="background-color:#424242">
+                                                <div class="btn fs-4 border text-white" id="boton31" onclick="enviarDatos('31','boton31')">31</div>
+                                            </td>
+                                            <td style="background-color: #ff5252">
+                                                <div class="btn fs-4 border text-white" id="boton34" onclick="enviarDatos('34','boton34')">34</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <input class="btn btn-primary" type="submit" value="Girar">
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-1 mb-2">
+                                    <div class="d-flex justify-content-center">
+                                        <h2 class="fw-bold">Apuesta</h2>
+                                    </div>
+                                    <div class="mt-1">
+                                        <select class="form-select text-center" name="monto">
+                                            <option value="0.50">0.50</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <input class="btn btn-success col-md-2 fw-bold m-3" id="submit" type="submit" value="Girar">
+                            </div>
                         </form>
                     </div>
                     <?php
                     // Verificar si se han recibido los datos por el método GET
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                        // Verificar si se ha recibido el dato seleccionado
-                        if (isset($_GET['datos_seleccionados'])) {
-                            // Recolectar el dato seleccionado
-                            $datos_seleccionados = $_GET['datos_seleccionados'];
-                            $monto = $_GET['monto'];
-                            // Convertir la cadena de datos en un array
-                            $array_datos = explode(',', $datos_seleccionados);
-                            // Generar un número aleatorio entre 1 y 36
-                            $numero_aleatorio = rand(1, 36);
+                        if ($haydatos == true) {
 
-                            // Verificar si el número aleatorio coincide con alguno de los datos seleccionados
-                            $coincidencia = false;
-                            foreach ($array_datos as $dato) {
-                                if ($numero_aleatorio == $dato) {
-                                    $coincidencia = true;
-                                    break;
+                            // Verificar si se ha recibido el dato seleccionado
+                            if (isset($_GET['datos_seleccionados'])) {
+                                // Recolectar el dato seleccionado
+                                $monto = $_GET['monto'];
+                                $monto_total = 0;
+                                // Convertir la cadena de datos en un array
+                                $array_numeros = explode(',', $datos_seleccionados);
+
+                                // Verificar si el número aleatorio coincide con alguno de los datos seleccionados
+                                $coincidencia = false;
+                                $apuesta_rojo = false;
+                                $apuesta_negro = false;
+
+                                foreach ($array_numeros as $numero) {
+                                    if ($numero_aleatorio == $numero) {
+                                        $coincidencia = true;
+                                    }
+                                    $monto_total += $monto;
+
+                                    // Determinar el color del número apostado
+                                    if ($numero == 1 || $numero == 3 || $numero == 5 || $numero == 9 || $numero == 7 || $numero == 12 || $numero == 14 || $numero == 18 || $numero == 16 || $numero == 19 || $numero == 21 || $numero == 23 || $numero == 25 || $numero == 27 || $numero == 30 || $numero == 32 || $numero == 34 || $numero == 36) {
+                                        $color = "rojo";
+                                    } else {
+                                        $color = "negro";
+                                    }
+
+                                    // Verificar si se ha apostado al rojo y/o al negro
+                                    if ($color == "rojo") {
+                                        $apuesta_rojo = true;
+                                    } else {
+                                        $apuesta_negro = true;
+                                    }
                                 }
-                            }
 
-                            if ($coincidencia) {
-                                $premio = $monto * 35;
+                                $sql_saldo = "SELECT saldo FROM usuarios WHERE id_usuario = $id_usuario";
+
+                                $resultado = $mysqli->query($sql_saldo);
+                                $fila_saldo = $resultado->fetch_assoc();
+                                $saldo_usuario = $fila_saldo['saldo'];
+
+                                if ($saldo_usuario >= $monto_total) {
+                                    if ($coincidencia) {
+                                        if (isset($_GET['monto'])) {
+                                            $premio = $monto * 35;
+                                            // Calcula el nuevo saldo del usuario después de ganar la apuesta
+                                            $nuevo_saldo = ($saldo_usuario + $premio) - $monto_total;
+                                            $sql_update = "UPDATE usuarios SET saldo = $nuevo_saldo WHERE id_usuario = $id_usuario";
+                                            $resultado = $mysqli->query($sql_update);
+                                            echo "<div class=''>";
+                                            echo "<div class='alert alert-success text-center display-6' role='alert'>WIN $premio €!!</div>";
+                                            echo "</div>";
+                                        }
+                                    } else {
+                                        if (isset($_GET['monto'])) {
+                                            $premio = 0;
+
+                                            // Calcula el nuevo saldo del usuario después de ganar la apuesta
+                                            $nuevo_saldo = $saldo_usuario - $monto_total;
+                                            $sql_update = "UPDATE usuarios SET saldo = $nuevo_saldo WHERE id_usuario = $id_usuario";
+                                            $resultado = $mysqli->query($sql_update);
+                                            echo "<div class=''>";
+                                            echo "<div class='alert alert-danger text-center display-6' role='alert'>Has perdido $monto_total €!!</div>";
+                                            echo "</div>";
+                                        }
+                                    }
+
+                                    echo "<p>Número ganador: $numero_aleatorio</p>";
+                                    echo "<p>Números seleccionados: $datos_seleccionados</p>";
+                                    echo "<p>Monto apostado: $monto_total</p>";
+                                    echo "<p>Recompensa: $premio</p>";
+
+                                    // Mostrar el resultado de la apuesta
+                                    if ($apuesta_rojo && $apuesta_negro) {
+                                        echo "El usuario ha apostado tanto al rojo como al negro.";
+                                    } elseif ($apuesta_rojo) {
+                                        echo "El usuario ha apostado al rojo.";
+                                    } elseif ($apuesta_negro) {
+                                        echo "El usuario ha apostado al negro.";
+                                    }
+                                } else {
+                                    echo "<div class=''>";
+                                    echo "<div class='alert alert-danger text-center display-6' role='alert'>Saldo insuficiente</div>";
+                                    echo "</div>";
+                                    exit();
+                                }
                             } else {
-                                $premio = 0;
+                                // Manejar el caso en el que se accede directamente a este archivo sin enviar el formulario
+                                //echo '<div class="alert alert-danger" role="alert">Este script espera recibir datos a través del método GET.</div>';
                             }
-                        } else {
-                            // Manejar el caso en el que falta el dato seleccionado
-                            echo "No se ha recibido el dato seleccionado.";
                         }
-                    } else {
-                        // Manejar el caso en el que se accede directamente a este archivo sin enviar el formulario
-                        echo "Este script espera recibir datos a través del método GET.";
-                    }
-
-
-                    // Imprimir la recompensa
-                    echo "Número ganador: $numero_aleatorio<br>";
-                    echo "Números seleccionados: $datos_seleccionados<br>";
-                    echo "Monto apostado: $monto<br>";
-                    echo "Recompensa: $premio";
                     ?>
+
                 </div>
             </div>
 </body>
 <?php
+                    }
                 }
                 // Cerrar la conexión a la base de datos
                 $mysqli->close();
+
 ?>
 
 </html>
