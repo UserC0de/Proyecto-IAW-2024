@@ -185,11 +185,11 @@ session_start();
 
                                     <div class="col-md-6 mb-4">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" />
+                                            <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>"/>
                                             <label class="form-label">Nickname</label>
                                         </div>
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>" required />
+                                            <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>"/>
                                             <label class="form-label">DNI</label>
                                         </div>
                                     </div>
@@ -226,7 +226,7 @@ session_start();
                                 <div class="row">
                                     <div class="col-md-6 mb-4 d-flex align-items-center">
                                         <div data-mdb-input-init class="form-outline datepicker w-100">
-                                            <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>" />
+                                            <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>"/>
                                             <label class="form-label">Fecha de Nacimiento
                                             </label>
                                         </div>
@@ -246,7 +246,7 @@ session_start();
                                 <div class="row">
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="email" name="email" class="form-control" value="<?php echo $correo ?>" />
+                                            <input type="email" name="email" class="form-control" value="<?php echo $correo ?>"/>
                                             <label class="form-label">Email</label>
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@ session_start();
                                     <div class="col-md-6 mb-4 pb-2">
 
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="tel" name="telefono" class="form-control" pattern="[0-9]{9}" title="El formato del teléfono no es válido. Debe contener 9 números." value="<?php echo $telefono ?>" />
+                                            <input type="tel" name="telefono" class="form-control" pattern="[0-9]{9}" title="El formato del teléfono no es válido. Debe contener 9 números." value="<?php echo $telefono ?>"/>
                                             <label class="form-label">Número de teléfono</label>
                                         </div>
 
@@ -334,11 +334,11 @@ session_start();
 
                             <div class="col-md-6 mb-4">
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" required />
+                                    <input type="text" name="usuario" class="form-control" value="<?php echo $nickname ?>" required disabled/>
                                     <label class="form-label">Nickname</label>
                                 </div>
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>" required />
+                                    <input type="text" name="dni" class="form-control" pattern="\d{8}[a-zA-Z]" title="El formato del DNI no es válido" value="<?php echo $dni ?>" required disabled/>
                                     <label class="form-label">DNI</label>
                                 </div>
                             </div>
@@ -375,7 +375,7 @@ session_start();
                         <div class="row">
                             <div class="col-md-6 mb-4 d-flex align-items-center">
                                 <div data-mdb-input-init class="form-outline datepicker w-100">
-                                    <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>" required />
+                                    <input type="date" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac ?>" required  disabled/>
                                     <label class="form-label">Fecha de Nacimiento</label>
                                 </div>
                             </div>
@@ -394,7 +394,7 @@ session_start();
                         <div class="row">
                             <div class="col-md-6 mb-4 pb-2">
                                 <div data-mdb-input-init class="form-outline">
-                                    <input type="email" name="email" class="form-control" value="<?php echo $correo ?>"  required />
+                                    <input type="email" name="email" class="form-control" value="<?php echo $correo ?>"  required disabled/>
                                     <label class="form-label">Email</label>
                                 </div>
                             </div>

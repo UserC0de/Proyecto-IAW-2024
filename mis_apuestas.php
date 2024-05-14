@@ -114,7 +114,7 @@ if (!isset($_SESSION['id_usuario'])) {
                     $partidos_por_pagina = 5;
 
                     // Calcular el total de partidos
-                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM apuestas where id_usuario=$id_usuario";
+                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM apuestas where id_usuario=$id_usuario and estado is null";
                     $resultado_total_partidos = $mysqli->query($sql_total_partidos);
                     $fila_total_partidos = $resultado_total_partidos->fetch_assoc();
                     $total_partidos = $fila_total_partidos['total_partidos'];
@@ -127,7 +127,7 @@ if (!isset($_SESSION['id_usuario'])) {
                     $offset = ($pagina_actual - 1) * $partidos_por_pagina;
 
                     // Realizar la consulta SQL con limit y offset
-                    $sql_apuestas = "SELECT * from apuestas where id_usuario=$id_usuario LIMIT $offset, $partidos_por_pagina";
+                    $sql_apuestas = "SELECT * from apuestas where id_usuario=$id_usuario and estado is NULL LIMIT $offset, $partidos_por_pagina";
                     $resultado_apuestas = $mysqli->query($sql_apuestas);
 
                     // Generar la tabla de partidos

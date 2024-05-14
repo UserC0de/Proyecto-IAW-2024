@@ -37,7 +37,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
     };
 
-    function enviarDatos(dato, idBoton, color) {
+    function enviarDatos(dato, idBoton) {
         var campoOculto = document.getElementById('datos_seleccionados');
         var boton = document.getElementById(idBoton);
         if (boton.classList.contains('btn-info')) {
@@ -137,7 +137,7 @@ if (!isset($_SESSION['id_usuario'])) {
             <div class="bg-light rounded-4 p-5">
                 <?php
                     $haydatos = false;
-                    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['monto'])) {
+                    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['monto']) || !empty($_GET['color'])) {
                         $datos_seleccionados = $_GET['datos_seleccionados'];
                         $numero_aleatorio = mt_rand(0, 36);
 
@@ -162,12 +162,14 @@ if (!isset($_SESSION['id_usuario'])) {
                     }
 
                     $numero_rojo = false;
-                    $numero_ = false;
+                    $numero_negro = false;
                     // Determinar el color del número apostado
-                    if ($numero_aleatorio == 1 || $numero_aleatorio == 3 || $numero_aleatorio == 5 || $numero_aleatorio == 9 || $numero == 7 || $numero == 12 || $numero == 14 || $numero == 18 || $numero == 16 || $numero == 19 || $numero == 21 || $numero == 23 || $numero == 25 || $numero == 27 || $numero == 30 || $numero == 32 || $numero == 34 || $numero == 36) {
+                    if ($numero_aleatorio == 1 || $numero_aleatorio == 3 || $numero_aleatorio == 5 || $numero_aleatorio == 9 || $numero_aleatorio == 7 || $numero_aleatorio == 12 || $numero_aleatorio == 14 || $numero_aleatorio == 18 || $numero_aleatorio == 16 || $numero_aleatorio == 19 || $numero_aleatorio == 21 || $numero_aleatorio == 23 || $numero_aleatorio == 25 || $numero_aleatorio == 27 || $numero_aleatorio == 30 || $numero_aleatorio == 32 || $numero_aleatorio == 34 || $numero_aleatorio == 36) {
                         $color = "rojo";
-                    } else {
+                    } elseif ($numero_aleatorio == 2 || $numero_aleatorio == 4 || $numero_aleatorio == 5 || $numero_aleatorio == 10 || $numero_aleatorio == 8 || $numero_aleatorio == 13 || $numero_aleatorio == 15 || $numero_aleatorio == 19 || $numero_aleatorio == 17 || $numero_aleatorio == 20 || $numero_aleatorio == 22 || $numero_aleatorio == 24 || $numero_aleatorio == 26 || $numero_aleatorio == 28 || $numero_aleatorio == 31 || $numero_aleatorio == 33 || $numero_aleatorio == 35) {
                         $color = "negro";
+                    } else {
+                        $color = "verde";
                     }
 
                     // Verificar si se ha apostado al rojo y/o al negro
@@ -311,6 +313,22 @@ if (!isset($_SESSION['id_usuario'])) {
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-2 mb-2">
+                                    <div class="d-flex justify-content-center">
+                                        <h2 class="fw-bold">Color</h2>
+                                    </div>
+                                    <div class="mt-1">
+                                        <select class="form-select text-center" name="color">
+                                            <option value="">Elige un color</option>
+                                            <option value="rojo">ROJO</option>
+                                            <option value="negro">NEGRO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="d-flex justify-content-center">
                                 <div class="form-group col-md-1 mb-2">
                                     <div class="d-flex justify-content-center">
@@ -318,15 +336,15 @@ if (!isset($_SESSION['id_usuario'])) {
                                     </div>
                                     <div class="mt-1">
                                         <select class="form-select text-center" name="monto">
-                                            <option value="0.50">0.50</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="5">5</option>
+                                            <option value="0.50">0.50€</option>
+                                            <option value="1">1€</option>
+                                            <option value="2">2€</option>
+                                            <option value="3">3€</option>
+                                            <option value="4">4€</option>
+                                            <option value="5">5€</option>
+                                            <option value="10">10€</option>
+                                            <option value="20">20€</option>
+                                            <option value="50">50€</option>
                                         </select>
                                     </div>
                                 </div>
@@ -339,8 +357,18 @@ if (!isset($_SESSION['id_usuario'])) {
                     <?php
                     // Verificar si se han recibido los datos por el método GET
                     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                        if ($haydatos == true) {
+                        $sql_saldo = "SELECT saldo FROM usuarios WHERE id_usuario = $id_usuario";
 
+                        $resultado = $mysqli->query($sql_saldo);
+                        $fila_saldo = $resultado->fetch_assoc();
+                        $saldo_usuario = $fila_saldo['saldo'];
+
+                        if (isset($_GET['color']) && isset($_GET['monto'])) {
+                            $color_apostado = $_GET['color'];
+                            $monto = $_GET['monto'];
+                        }
+
+                        if ($haydatos == true) {
                             // Verificar si se ha recibido el dato seleccionado
                             if (isset($_GET['datos_seleccionados'])) {
                                 // Recolectar el dato seleccionado
@@ -351,35 +379,13 @@ if (!isset($_SESSION['id_usuario'])) {
 
                                 // Verificar si el número aleatorio coincide con alguno de los datos seleccionados
                                 $coincidencia = false;
-                                $apuesta_rojo = false;
-                                $apuesta_negro = false;
 
                                 foreach ($array_numeros as $numero) {
                                     if ($numero_aleatorio == $numero) {
                                         $coincidencia = true;
                                     }
                                     $monto_total += $monto;
-
-                                    // Determinar el color del número apostado
-                                    if ($numero == 1 || $numero == 3 || $numero == 5 || $numero == 9 || $numero == 7 || $numero == 12 || $numero == 14 || $numero == 18 || $numero == 16 || $numero == 19 || $numero == 21 || $numero == 23 || $numero == 25 || $numero == 27 || $numero == 30 || $numero == 32 || $numero == 34 || $numero == 36) {
-                                        $color = "rojo";
-                                    } else {
-                                        $color = "negro";
-                                    }
-
-                                    // Verificar si se ha apostado al rojo y/o al negro
-                                    if ($color == "rojo") {
-                                        $apuesta_rojo = true;
-                                    } else {
-                                        $apuesta_negro = true;
-                                    }
                                 }
-
-                                $sql_saldo = "SELECT saldo FROM usuarios WHERE id_usuario = $id_usuario";
-
-                                $resultado = $mysqli->query($sql_saldo);
-                                $fila_saldo = $resultado->fetch_assoc();
-                                $saldo_usuario = $fila_saldo['saldo'];
 
                                 if ($saldo_usuario >= $monto_total) {
                                     if ($coincidencia) {
@@ -411,33 +417,67 @@ if (!isset($_SESSION['id_usuario'])) {
                                     echo "<p>Números seleccionados: $datos_seleccionados</p>";
                                     echo "<p>Monto apostado: $monto_total</p>";
                                     echo "<p>Recompensa: $premio</p>";
-
-                                    // Mostrar el resultado de la apuesta
-                                    if ($apuesta_rojo && $apuesta_negro) {
-                                        echo "El usuario ha apostado tanto al rojo como al negro.";
-                                    } elseif ($apuesta_rojo) {
-                                        echo "El usuario ha apostado al rojo.";
-                                    } elseif ($apuesta_negro) {
-                                        echo "El usuario ha apostado al negro.";
-                                    }
                                 } else {
                                     echo "<div class=''>";
                                     echo "<div class='alert alert-danger text-center display-6' role='alert'>Saldo insuficiente</div>";
                                     echo "</div>";
                                     exit();
                                 }
-                            } else {
-                                // Manejar el caso en el que se accede directamente a este archivo sin enviar el formulario
-                                //echo '<div class="alert alert-danger" role="alert">Este script espera recibir datos a través del método GET.</div>';
+                                echo "<p>Color apostado: $color_apostado</p>";
+
+                                // Mostrar el resultado de la apuesta
+                                if ($numero_rojo) {
+                                    echo "Número aleatorio ROJO";
+                                } elseif ($numero_negro) {
+                                    echo "Número aleatorio NEGRO";
+                                } else {
+                                    echo "Número aleatorio VERDE";
+                                }
+                                exit();
                             }
+                        } else {
+                            // Manejar el caso en el que se accede directamente a este archivo sin enviar el formulario
+                            //echo '<div class="alert alert-danger" role="alert">Este script espera recibir datos a través del método GET.</div>';
                         }
+                    }
+
+                    if (isset($_GET['color']) && !empty($_GET['color'])) {
+                        if ($saldo_usuario >= $monto) {
+                            if ($color == $color_apostado) {
+                                $premio = $monto * 2;
+
+                                // Calcula el nuevo saldo del usuario después de ganar la apuesta
+                                $nuevo_saldo = ($saldo_usuario + $premio) - $monto;
+                                $sql_update = "UPDATE usuarios SET saldo = $nuevo_saldo WHERE id_usuario = $id_usuario";
+                                $resultado = $mysqli->query($sql_update);
+
+                                echo "<div class=''>";
+                                echo "<div class='alert alert-success text-center display-6' role='alert'>WIN $premio €!!</div>";
+                                echo "</div>";
+                            } else {
+                                $premio = 0;
+                                // Calcula el nuevo saldo del usuario después de ganar la apuesta
+                                $nuevo_saldo = $saldo_usuario - $monto;
+                                $sql_update = "UPDATE usuarios SET saldo = $nuevo_saldo WHERE id_usuario = $id_usuario";
+                                $resultado = $mysqli->query($sql_update);
+
+                                echo "<div class=''>";
+                                echo "<div class='alert alert-danger text-center display-6' role='alert'>Has perdido $monto €!!</div>";
+                                echo "</div>";
+                            }
+                        } else {
+                            echo "<div class=''>";
+                            echo "<div class='alert alert-danger text-center display-6' role='alert'>Saldo insuficiente</div>";
+                            echo "</div>";
+                            exit();
+                        }
+                    }
                     ?>
 
                 </div>
             </div>
 </body>
 <?php
-                    }
                 }
                 // Cerrar la conexión a la base de datos
                 $mysqli->close();

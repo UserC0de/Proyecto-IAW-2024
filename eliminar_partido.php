@@ -25,21 +25,25 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
         $id_partido = $_GET['id_partido'];
 
         // Preparar la consulta SQL para obtener las apuestas asociadas al partido
-        $sql_apuestas = "SELECT id_usuario, monto FROM apuestas WHERE id_partido = $id_partido";
+        $sql_apuestas = "SELECT * FROM apuestas WHERE id_partido = $id_partido";
 
         // Ejecutar la consulta para obtener las apuestas
         $resultado_apuestas = $mysqli->query($sql_apuestas);
         if ($resultado_apuestas) {
             // Recorrer las apuestas y devolver el saldo apostado a los usuarios correspondientes
             while ($fila_apuesta = $resultado_apuestas->fetch_assoc()) {
-                $id_usuario = $fila_apuesta['id_usuario'];
-                $monto_apostado = $fila_apuesta['monto'];
+                if (empty($fila_apuesta['estado'])){
+                    $id_usuario = $fila_apuesta['id_usuario'];
+                    $monto_apostado = $fila_apuesta['monto'];
+    
+                    // Preparar la consulta SQL para actualizar el saldo del usuario devolviendo el monto apostado
+                    $sql_devolver_saldo = "UPDATE usuarios SET saldo = saldo + $monto_apostado WHERE id_usuario = $id_usuario";
+    
+                    // Ejecutar la consulta para devolver el saldo
+                    $mysqli->query($sql_devolver_saldo);
+                } else {
 
-                // Preparar la consulta SQL para actualizar el saldo del usuario devolviendo el monto apostado
-                $sql_devolver_saldo = "UPDATE usuarios SET saldo = saldo + $monto_apostado WHERE id_usuario = $id_usuario";
-
-                // Ejecutar la consulta para devolver el saldo
-                $mysqli->query($sql_devolver_saldo);
+                }
             }
         }
 

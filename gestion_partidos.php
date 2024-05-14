@@ -98,13 +98,93 @@ session_start();
                     <a href="crear_partido.php"><button type="button" class="btn btn-success">Crear partido</button></a>
                 </div>
                 <div class="border border-dark rounded-4 p-2">
+                    <form action="gestion_partidos.php" method="GET">
+                        <div class="row mb-3">
+                            <div class="">
+                                <select name="filtro_competencia">
+                                    <option value="">Cualquiera competicion</option>
+                                    <option value="Abierto de Australia">Abierto de Australia (Australian Open)</option>
+                                    <option value="Roland Garros">Roland Garros (Abierto de Francia, French Open)</option>
+                                    <option value="Wimbledon">Wimbledon (Campeonato de Wimbledon, The Championships)</option>
+                                    <option value="Abierto de Estados Unidos">Abierto de Estados Unidos (US Open)</option>
+                                    <option value="ATP Tour Finals">ATP Tour Finals</option>
+                                    <option value="WTA Tour Championships">WTA Tour Championships</option>
+                                    <option value="Masters 1000">Masters 1000</option>
+                                    <option value="Masters 500">Masters 500</option>
+                                    <option value="ATP Tour 250">ATP Tour 250</option>
+                                    <option value="WTA Premier Mandatory">WTA Premier Mandatory</option>
+                                    <option value="WTA Premier 5">WTA Premier 5</option>
+                                    <option value="WTA Premier">WTA Premier</option>
+                                    <option value="Copa Hopman">Copa Hopman</option>
+                                    <option value="ATP Cup">ATP Cup</option>
+                                    <option value="Laver Cup">Laver Cup</option>
+                                    <option value="Copa Davis">Copa Davis (Masculina)</option>
+                                    <option value="Billie Jean King Cup">Billie Jean King Cup (Femenina)</option>
+                                    <option value="Copa Fed">Copa Fed (Femenina)</option>
+                                    <option value="Copa ATP">Copa ATP (Anteriormente Copa del Mundo por Equipos)</option>
+                                    <option value="Copa Masters">Copa Masters (Anteriormente Copa de Maestros)</option>
+                                    <option value="Abierto de Madrid">Abierto de Madrid</option>
+                                </select>
+                                <label class="form-label select-label">Elige una competición</label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="filtro_estado">
+                                    <option value="">Pendientes</option>
+                                    <option value="1">Finalizadas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center border ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" id="filtro_mayor_saldo" name="filtro_mayor_cuota">
+                                    <label class="form-check-label" for="filtro_mayor_cuota">
+                                        Ordenar por mayor cuota
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
                     <?php
+                                    // Obtener el valor del filtro de estado si está presente en la URL
 
+                                    $filtro_mayor_cuota = isset($_GET['filtro_mayor_cuota']) ? $_GET['filtro_mayor_cuota'] : '';
+                                    $filtro_estado = isset($_GET['filtro_estado']) ? $_GET['filtro_estado'] : '';
+                                    $filtro_competencia = isset($_GET['filtro_competencia']) ? $_GET['filtro_competencia'] : '';
+
+                                    // Realizar la consulta SQL con el filtro de estado si está presente
+                                    $sql_partidos = "SELECT * FROM partidos p, cuotas c where p.id_partido = c.id_partido;";
+
+                                    // Construir la parte WHERE de la consulta SQL basada en los filtros
+                                    $where = [];
+                                    if (!empty($filtro_estado)) {
+                                        $where[] = "resultado is not null";
+                                    } else {
+                                        $where[] = "resultado is null";
+                                    }
+
+                                    if (!empty($filtro_competencia)) {
+                                        $where[] = "competicion LIKE '%$filtro_competencia%'";
+                                    }
+
+                                    // Verificar si el checkbox de filtro por mayor saldo está marcado
+                                    if (!empty($filtro_mayor_cuota)) {
+                                        // Construir la parte ORDER BY de la consulta SQL solo si el checkbox está marcado
+                                        $order_by = " ORDER BY c.cuota_visitante DESC, c.cuota_local DESC"; // Ordenar en orden descendente (mayor saldo primero)
+                                    } else {
+                                        // De lo contrario, no se necesita ordenar por saldo
+                                        $order_by = " ORDER BY competicion"; // No se aplica ningún ordenamiento
+                                    }
+                                    // Combinar todos los filtros con AND
+                                    $where_clause = !empty($where) ? ' AND ' . implode(' AND ', $where) : '';
+                                    $where_clause2 = !empty($where) ? ' WHERE ' . implode(' AND ', $where) : '';
                                     // Número de partidos por página
                                     $partidos_por_pagina = 5;
 
                                     // Calcular el total de partidos
-                                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM partidos where resultado IS NULL";
+                                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM partidos";
+                                    $sql_total_partidos .= $where_clause2;
                                     $resultado_total_partidos = $mysqli->query($sql_total_partidos);
                                     $fila_total_partidos = $resultado_total_partidos->fetch_assoc();
                                     $total_partidos = $fila_total_partidos['total_partidos'];
@@ -117,17 +197,17 @@ session_start();
                                     $offset = ($pagina_actual - 1) * $partidos_por_pagina;
 
                                     // Realizar la consulta SQL con limit y offset
-                                    $sql_partidos = "SELECT p.id_partido, p.competicion, p.jugador_visitante, c.cuota_visitante, p.jugador_local, c.cuota_local, p.fecha, p.hora
-                        FROM partidos p, cuotas c 
-                            where p.id_partido=c.id_partido
-                                and p.resultado IS NULL
-                                ORDER BY p.fecha 
-                                    LIMIT $offset, $partidos_por_pagina";
+                                    $sql_partidos = "SELECT * FROM partidos p, cuotas c where p.id_partido=c.id_partido";
+
+                                    $sql_partidos .= $where_clause; // Agregar la cláusula WHERE si hay filtros
+                                    $sql_partidos .= $order_by; // Agregar la cláusula ORDER BY solo si el checkbox está marcado
+                                    $sql_partidos .= " LIMIT $offset, $partidos_por_pagina";
+
                                     $resultado_partidos = $mysqli->query($sql_partidos);
 
                                     // Generar la tabla de partidos
                                     echo '<table class="table table-striped caption-top">';
-                                    echo '<caption>Lista de partidos pendientes</caption>';
+                                    echo "<caption>Lista total de partidos: ($total_partidos)</caption>";
                                     echo '<thead>';
                                     echo '<tr class="bg-info bg-gradient text-center">';
                                     echo '<th scope="col">Competicion</th>';
@@ -137,6 +217,7 @@ session_start();
                                     echo '<th scope="col">Cuota Local</th>';
                                     echo '<th scope="col">Fecha</th>';
                                     echo '<th scope="col">Hora</th>';
+                                            echo '<th scope="col">Ganador</th>';
                                     echo '</tr>';
                                     echo '</thead>';
                                     echo '<tbody>';
@@ -150,8 +231,23 @@ session_start();
                                         echo "<td class='text-center'>$fila[cuota_local]</td>";
                                         echo "<td class='text-center'>$fila[fecha]</td>";
                                         echo "<td class='text-center'>$fila[hora]</td>";
-                                        echo "<td class='text-center'><a href='editar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-warning'>Editar</button></td>";
-                                        echo "<td class='text-center'><a href='eliminar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
+
+                                        if ($fila['resultado'] > 0) {
+                                            $ganador = $fila['resultado'];
+                                            if ($ganador == 1) {
+                                                $ganador = "Local";
+                                            } else {
+                                                $ganador = "Visitante";
+                                            }
+                                            echo "<td class='text-center'>$ganador</td>";
+                                            echo "<td class='text-center'><a href='eliminar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
+
+                                        } else {
+
+                                            echo "<td class='text-center'><a href='resultado.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-info'>Finalizar</button></td>";
+                                            echo "<td class='text-center'><a href='editar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-warning'>Editar</button></td>";
+                                            echo "<td class='text-center'><a href='eliminar_partido.php?id_partido=$fila[id_partido]'><button type='button' class='btn btn-danger'>Eliminar</button></td>";
+                                        }
                                         echo "</tr>";
                                     }
 
