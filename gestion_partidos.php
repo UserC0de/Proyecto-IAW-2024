@@ -179,6 +179,7 @@ session_start();
                                     // Combinar todos los filtros con AND
                                     $where_clause = !empty($where) ? ' AND ' . implode(' AND ', $where) : '';
                                     $where_clause2 = !empty($where) ? ' WHERE ' . implode(' AND ', $where) : '';
+                                    
                                     // Número de partidos por página
                                     $partidos_por_pagina = 5;
 

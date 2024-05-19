@@ -42,10 +42,10 @@ session_start();
                             <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Ruleta</a>
+                            <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Blackjack</a>
+                            <a class="nav-link text-light" href="blog.php">Blog</a>
                         </li>
                     </ul>
                 </div>
@@ -75,10 +75,10 @@ session_start();
                                     echo "<div class='nav-item dropdown'>";
                                     echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                                     echo '<ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Perfil</a></li>
-                      <li><a class="dropdown-item" href="#">Gestión de Usuarios</a></li>
+                      <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
+                      <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                       <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
-                      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                      <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
                       <li><a class="dropdown-item" href="#">Soporte</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
@@ -187,18 +187,6 @@ session_start();
 </body>
 <?php
                                 } else {
-                                    echo '</div>';
-                                    echo '<div class="mx-3">';
-                                    echo "<div class='nav-item dropdown'>";
-                                    echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
-                                    echo '<ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Perfil</a></li>
-      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
-      <li><a class="dropdown-item" href="#">Monedero</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
-    </ul>
-  </div>';
                                     header("location: index.php");
                                 }
                             } else {

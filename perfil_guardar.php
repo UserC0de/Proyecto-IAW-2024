@@ -41,6 +41,8 @@ if (isset($_SESSION['id_usuario'])) {
             $genero = $_POST["genero"];
             $correo = $_POST["email"];
             $telefono = $_POST["telefono"];
+            $password = $_POST["password"];
+            $password2 = $_POST["password2"];
 
             $cumpleanos = new DateTime("$fecha_nac");
             $hoy = new DateTime();
@@ -162,7 +164,8 @@ if (isset($_SESSION['id_usuario'])) {
                     $sql_update = "UPDATE usuarios set fecha_nac='$fecha_nac' where id_usuario = '$id_usuario'";
                     $resultado = $mysqli->query($sql_update);
                     header("location: gestion_usuarios.php");
-                } else {
+                } 
+                if ($resultado->num_rows > 0) {
                     echo '<div class="alert alert-danger" role="alert">La edad debe ser mayor de 18 años.</div>';
                     echo "<div class='d-flex justify-content-center'>";
                     echo "<p><a href='perfil_usuario.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
@@ -210,6 +213,11 @@ if (isset($_SESSION['id_usuario'])) {
                     }
                 } 
             }
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insertar la contraseña en la tabla passwords
+            $sql = "UPDATE passwords SET contrasena='$hashed_password' WHERE id_usuario = '$id_usuario'";
+            $resultado = $mysqli->query($sql);
             header("location: gestion_usuarios.php");
         ?>
     </div>

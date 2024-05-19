@@ -75,7 +75,7 @@ if (!isset($_SESSION['id_usuario'])) {
                                     <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
                                     <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                                     <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
-                                    <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                                    <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
                                     <li><a class="dropdown-item" href="#">Soporte</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
@@ -88,8 +88,8 @@ if (!isset($_SESSION['id_usuario'])) {
                         echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
                         echo '<ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
-                                    <li><a class="dropdown-item" href="#">Monedero</a></li>
+                                    <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
+                                    <li><a class="dropdown-item" href="#">Soporte</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                                     </ul>
@@ -108,13 +108,63 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
             <div class="bg-light rounded-4 p-5">
                 <div class="border border-dark rounded-4 p-2">
+                    <form action="mis_apuestas.php" method="GET">
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                                <select class="form-control" name="filtro_estado">
+                                    <option value="">Pendientes</option>
+                                    <option value="1">Finalizadas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center border ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" id="filtro_mayor_saldo" name="filtro_mayor_cuota">
+                                    <label class="form-check-label" for="filtro_mayor_cuota">
+                                        Ordenar por mayor cuota
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
                     <?php
+                    // Obtener el valor del filtro de estado si está presente en la URL
 
+                    $filtro_mayor_cuota = isset($_GET['filtro_mayor_cuota']) ? $_GET['filtro_mayor_cuota'] : '';
+                    $filtro_estado = isset($_GET['filtro_estado']) ? $_GET['filtro_estado'] : '';
+                    $filtro_competencia = isset($_GET['filtro_competencia']) ? $_GET['filtro_competencia'] : '';
+
+                    // Realizar la consulta SQL con el filtro de estado si está presente
+                    $sql_partidos = "SELECT * FROM partidos p, cuotas c where p.id_partido = c.id_partido;";
+
+                    // Construir la parte WHERE de la consulta SQL basada en los filtros
+                    $where = [];
+                    if (!empty($filtro_estado)) {
+                        $where[] = "estado is not null";
+                    } else {
+                        $where[] = "estado is null";
+                    }
+
+                    // Verificar si el checkbox de filtro por mayor saldo está marcado
+                    if (!empty($filtro_mayor_cuota)) {
+                        // Construir la parte ORDER BY de la consulta SQL solo si el checkbox está marcado
+                        $order_by = " ORDER BY cuota"; // Ordenar en orden descendente (mayor saldo primero)
+                    } else {
+                        // De lo contrario, no se necesita ordenar por saldo
+                        $order_by = " ORDER BY fecha"; // No se aplica ningún ordenamiento
+                    }
+                    // Combinar todos los filtros con AND
+                    $where_clause = !empty($where) ? ' AND ' . implode(' AND ', $where) : '';
+                    
                     // Número de partidos por página
                     $partidos_por_pagina = 5;
 
                     // Calcular el total de partidos
-                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM apuestas where id_usuario=$id_usuario and estado is null";
+                    $sql_total_partidos = "SELECT COUNT(*) AS total_partidos FROM apuestas where id_usuario=$id_usuario";
+                    $sql_total_partidos .= $where_clause;
+
                     $resultado_total_partidos = $mysqli->query($sql_total_partidos);
                     $fila_total_partidos = $resultado_total_partidos->fetch_assoc();
                     $total_partidos = $fila_total_partidos['total_partidos'];
@@ -127,7 +177,11 @@ if (!isset($_SESSION['id_usuario'])) {
                     $offset = ($pagina_actual - 1) * $partidos_por_pagina;
 
                     // Realizar la consulta SQL con limit y offset
-                    $sql_apuestas = "SELECT * from apuestas where id_usuario=$id_usuario and estado is NULL LIMIT $offset, $partidos_por_pagina";
+                    $sql_apuestas = "SELECT * from apuestas where id_usuario=$id_usuario";
+
+                    $sql_apuestas .= $where_clause; // Agregar la cláusula WHERE si hay filtros
+                    $sql_apuestas .= $order_by; // Agregar la cláusula ORDER BY solo si el checkbox está marcado
+                    $sql_apuestas .= " LIMIT $offset, $partidos_por_pagina";
                     $resultado_apuestas = $mysqli->query($sql_apuestas);
 
                     // Generar la tabla de partidos

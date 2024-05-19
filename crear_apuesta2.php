@@ -1,15 +1,18 @@
 <?php
-require 'conexion.php';
-// Iniciar sesión si no está iniciada
+require 'conexion.php'; // Incluye el archivo de conexión a la base de datos
+
+// Inicia sesión si no está iniciada
 session_start();
 if (!isset($_SESSION['id_usuario'])) {
     header("location: index.php");
     exit();
-
-    if ($_SESSION['estado'] !== 'A') {
-        header("location: usuario_bloq.php");
-    }
 }
+
+if ($_SESSION['estado'] !== 'A') {
+    header("location: usuario_bloq.php");
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +27,7 @@ if (!isset($_SESSION['id_usuario'])) {
 <body class="container vh-100 d-flex align-items-center justify-content-center" style="background-image: url('fotos/casino.jpeg'); background-size: cover; background-position: center">
     <div class="row bg-dark p-5 rounded-4">
         <?php
-        // Verificar si se recibieron los datos del formulario por POST
+        // Verifica si se recibieron los datos del formulario por POST
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             function generarNumeroAleatorio($mysqli, $intentos = 0)
             {
@@ -55,16 +58,15 @@ if (!isset($_SESSION['id_usuario'])) {
                     return false;
                 }
             }
+            
             // Recuperar los valores del formulario
             $id_apuesta = generarNumeroAleatorio($mysqli);
-            $id_usuario = $_POST['id_usuario'];
-            $id_partido = $_POST['id_partido'];
-            $monto = $_POST['monto'];
-            $resultado = $_POST['resultado'];
+            $id_usuario = $mysqli->real_escape_string($_POST['id_usuario']);
+            $id_partido = $mysqli->real_escape_string($_POST['id_partido']);
+            $monto = $mysqli->real_escape_string($_POST['monto']);
+            $resultado = $mysqli->real_escape_string($_POST['resultado']);
             $liquidez_casino = 5319.317;
 
-
-            
             // Verifica el valor de $resultado y asigna la cuota correspondiente
             if ($resultado == 1 || $resultado == 2) {
                 // Hacer la consulta SQL para obtener las cuotas del partido
@@ -95,6 +97,7 @@ if (!isset($_SESSION['id_usuario'])) {
                     if ($saldo_usuario >= $monto) {
                         // Restar el monto de la apuesta del saldo del usuario
                         $nuevo_saldo = $saldo_usuario - $monto;
+                        
                         // Consulta para obtener el monto total apostado por el usuario en este partido
                         $sql_monto_total_apostado = "SELECT SUM(monto) AS monto_total FROM apuestas WHERE id_usuario = '$id_usuario' AND id_partido = '$id_partido'";
                         $resultado_monto_total = $mysqli->query($sql_monto_total_apostado);
@@ -140,24 +143,28 @@ if (!isset($_SESSION['id_usuario'])) {
                                         $resultado_actualizar_saldo = $mysqli->query($sql_actualizar_saldo);
 
                                         if ($resultado_actualizar_saldo) {
+                                            // Insertar la apuesta en la base de datos
                                             $sql_insertar_apuesta = "INSERT INTO apuestas (id_apuesta, id_usuario, id_partido, cuota, monto, fecha, resultado) 
                                     VALUES ('$id_apuesta', '$id_usuario', '$id_partido', '$cuota', '$monto', CURRENT_TIMESTAMP, '$resultado')";
-                                            $resultado_insertart_apuesta = $mysqli->query($sql_insertar_apuesta);
+                                            $resultado_insertar_apuesta = $mysqli->query($sql_insertar_apuesta);
                                             header("location: apuestas.php");
                                         } else {
-                                            echo '<div class="alert alert-danger" role="alert">Error al actualizar el saldo del usuario: </div>' . $mysqli->error;;
+                                            // Manejar el error al actualizar el saldo del usuario
+                                            echo '<div class="alert alert-danger" role="alert">Error al actualizar el saldo del usuario: ' . $mysqli->error . '</div>';
                                             echo "<div class='d-flex justify-content-center'>";
                                             echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                                             echo "</div>";
                                         }
                                     } else {
-                                        echo '<div class="alert alert-danger" role="alert">Error al actualizar las cuotas: </div>' . $mysqli->error;;
+                                        // Manejar el error al actualizar las cuotas
+                                        echo '<div class="alert alert-danger" role="alert">Error al actualizar las cuotas: ' . $mysqli->error . '</div>';
                                         echo "<div class='d-flex justify-content-center'>";
                                         echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                                         echo "</div>";
                                     }
                                 } else {
-                                    echo '<div class="alert alert-danger" role="alert">Error al obtener las cuotas del partido: </div>' . $mysqli->error;;
+                                    // Manejar el error al obtener las cuotas del partido
+                                    echo '<div class="alert alert-danger" role="alert">Error al obtener las cuotas del partido: ' . $mysqli->error . '</div>';
                                     echo "<div class='d-flex justify-content-center'>";
                                     echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                                     echo "</div>";
@@ -170,27 +177,35 @@ if (!isset($_SESSION['id_usuario'])) {
                                 echo "</div>";
                             }
                         } else {
-                            // Manejar el error de la consulta
+                            // Manejar el error al obtener el monto total apostado por el usuario
                             echo '<div class="alert alert-danger" role="alert">Error al obtener el monto total apostado por el usuario: ' . $mysqli->error . '</div>';
                             echo "<div class='d-flex justify-content-center'>";
                             echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                             echo "</div>";
                         }
                     } else {
-                        echo '<div class="alert alert-danger" role="alert">Error al consultar el saldo del usuario: </div>' . $mysqli->error;;
+                        // Mostrar mensaje de error si el saldo del usuario es insuficiente
+                        echo '<div class="alert alert-danger" role="alert">Saldo insuficiente para realizar la apuesta.</div>';
                         echo "<div class='d-flex justify-content-center'>";
                         echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                         echo "</div>";
                     }
+                } else {
+                    // Manejar el caso en que no se encuentra el saldo del usuario
+                    echo '<div class="alert alert-danger" role="alert">Error: No se encontró el saldo del usuario.</div>';
+                    echo "<div class='d-flex justify-content-center'>";
+                    echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                    echo "</div>";
                 }
             } else {
-                echo '<div class="alert alert-danger" role="alert">Error: No se encontró el saldo del usuario.</div>';
+                // Manejar el error de la consulta de saldo del usuario
+                echo '<div class="alert alert-danger" role="alert">Error al consultar el saldo del usuario: ' . $mysqli->error . '</div>';
                 echo "<div class='d-flex justify-content-center'>";
                 echo "<p><a href='crear_apuesta.php?id_partido=$id_partido'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                 echo "</div>";
             }
         } else {
-            header("location: apuestas.php");
+            header("location: apuestas.php"); // Redirige si el método no es POST
         }
         ?>
     </div>

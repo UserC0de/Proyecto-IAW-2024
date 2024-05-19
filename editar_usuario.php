@@ -82,10 +82,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
                             <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Ruleta</a>
+                            <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Blackjack</a>
+                            <a class="nav-link text-light" href="blog.php ">Blog</a>
                         </li>
                     </ul>
                 </div>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
                       <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
                       <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
                       <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
-                      <li><a class="dropdown-item" href="#">Mis Apuestas</a></li>
+                      <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
                       <li><a class="dropdown-item" href="#">Soporte</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>

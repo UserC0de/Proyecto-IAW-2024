@@ -29,16 +29,11 @@
         </div>
         <input class="form-control bg-light" type="password" placeholder="Password" name="password"/>
       </div>
-      <div class="d-flex justify-content-around mt-1">
-        <div class="pt-1">
-          <a href="#" class="text-decoration-none text-info fw-semibold fst-italic" style="font-size: 0.9rem">Forgot your password?</a>
-        </div>
-      </div>
       <div class="p-2">
         <input class="btn btn-info d-flex text-white fw-semibold shadow-sm m-auto w-100" type="submit" value="Login">
       </div>
       <div class="d-flex gap-1 justify-content-center mt-1">
-        <div>Don't have an account?</div>
+        <div>¿No tienes cuenta?</div>
         <a href="register.php" class="text-decoration-none text-info fw-semibold">Register</a>
       </div>
       <div class="p-2">

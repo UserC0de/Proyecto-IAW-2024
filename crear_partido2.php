@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php'
+require 'conexion.php'; // Incluye el archivo de conexión a la base de datos
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,14 +30,17 @@ require 'conexion.php'
         // Generar un número aleatorio
         $num_random = rand(0, 999999);
 
-        // Consultar si ya existe un usuario con ese id_usuario
-        $sql = "SELECT COUNT(*) AS count FROM partidos WHERE id_partido = '$num_random'";
-        $resultado = $mysqli->query($sql);
+        // Consultar si ya existe un partido con ese id_partido
+        $num_random = rand(0, 999999);
+        $stmt = $mysqli->prepare("SELECT COUNT(*) AS count FROM partidos WHERE id_partido = ?");
+        $stmt->bind_param("i", $num_random);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
         if ($resultado) {
             $row = $resultado->fetch_assoc();
             $count = $row['count'];
-            // Si ya existe un usuario con ese id_usuario, generar otro número
+            // Si ya existe un partido con ese id_partido, generar otro número
             if ($count > 0) {
                 return generarNumeroAleatorio($mysqli, $intentos + 1);
             } else {
@@ -52,13 +55,14 @@ require 'conexion.php'
     // Verificar si se recibieron los datos del formulario
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Recuperar los datos del formulario
-        $jugador_visitante = $_POST["jug_visitante"];
-        $cuota_visitante = $_POST["cuota_visitante"];
-        $jugador_local = $_POST["jug_local"];
-        $cuota_local = $_POST["cuota_local"];
-        $fecha = $_POST["fecha"];
-        $hora = $_POST["hora"];
-        $competencia = $_POST["competencia"];
+        $jugador_visitante = $mysqli->real_escape_string($_POST["jug_visitante"]);
+        $cuota_visitante = $mysqli->real_escape_string($_POST["cuota_visitante"]);
+        $jugador_local = $mysqli->real_escape_string($_POST["jug_local"]);
+        $cuota_local = $mysqli->real_escape_string($_POST["cuota_local"]);
+        $fecha = $mysqli->real_escape_string($_POST["fecha"]);
+        $hora = $mysqli->real_escape_string($_POST["hora"]);
+        $competencia = $mysqli->real_escape_string($_POST["competencia"]);
+
 
         $id_partido = generarNumeroAleatorio($mysqli);
 
@@ -99,7 +103,6 @@ require 'conexion.php'
         exit();
     }
     ?>
-
 </body>
 
 </html>

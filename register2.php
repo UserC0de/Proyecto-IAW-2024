@@ -85,83 +85,98 @@ require 'conexion.php';
             exit();
         }
 
-        // Verificar si las contraseñas coinciden
-        if ($password === $password2) {
-            // Verificar si ya existe un usuario con el mismo nickname
-            $sql = "SELECT * FROM usuarios WHERE nickname = '$usuario'";
-            $resultado = $mysqli->query($sql);
-            if ($resultado->num_rows > 0) {
-                echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo nickname.</div>';
-                $error = true;
-            }
+// Verificar si las contraseñas coinciden
+if ($password === $password2) {
+    // Verificar si ya existe un usuario con el mismo nickname
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE nickname = ?");
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if ($resultado->num_rows > 0) {
+        echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo nickname.</div>';
+        $error = true;
+    }
+    $stmt->close();
 
-            // Verificar si ya existe un usuario con el mismo correo electrónico
-            $sql = "SELECT * FROM usuarios WHERE correo = '$email'";
-            $resultado = $mysqli->query($sql);
-            if ($resultado->num_rows > 0) {
-                echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo correo electrónico.</div>';
-                $error = true;
-            }
+    // Verificar si ya existe un usuario con el mismo correo electrónico
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE correo = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if ($resultado->num_rows > 0) {
+        echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo correo electrónico.</div>';
+        $error = true;
+    }
+    $stmt->close();
 
-            // Verificar si ya existe un usuario con el mismo DNI
-            $sql = "SELECT * FROM usuarios WHERE dni = '$dni'";
-            $resultado = $mysqli->query($sql);
-            if ($resultado->num_rows > 0) {
-                echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo DNI.</div>';
-                $error = true;
-            }
+    // Verificar si ya existe un usuario con el mismo DNI
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE dni = ?");
+    $stmt->bind_param("s", $dni);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if ($resultado->num_rows > 0) {
+        echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo DNI.</div>';
+        $error = true;
+    }
+    $stmt->close();
 
-            // Verificar si ya existe un usuario con el mismo número de teléfono
-            $sql = "SELECT * FROM usuarios WHERE telefono = '$telefono'";
-            $resultado = $mysqli->query($sql);
-            if ($resultado->num_rows > 0) {
-                echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo número de teléfono.</div>';
-                $error = true;
-            }
+    // Verificar si ya existe un usuario con el mismo número de teléfono
+    $stmt = $mysqli->prepare("SELECT * FROM usuarios WHERE telefono = ?");
+    $stmt->bind_param("s", $telefono);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if ($resultado->num_rows > 0) {
+        echo '<div class="alert alert-danger" role="alert">Ya existe un usuario con el mismo número de teléfono.</div>';
+        $error = true;
+    }
+    $stmt->close();
 
-            // Si no se encontraron errores, proceder con el insert
-            if (!$error) {
-                $sql = "INSERT INTO usuarios (id_usuario, nombre, apellido, nickname, dni, direccion, pais, ciudad, cod_postal, fecha_nac, genero, correo, telefono, saldo, estado, rol_usuario) 
-                        VALUES ('$id_usuario', '$nombre', '$apellido', '$usuario', '$dni', '$direccion', '$pais', '$ciudad', '$cod_postal', '$fecha_nac', '$genero', '$email', '$telefono', '100', 'A', 'usuario')";
-                $resultado = $mysqli->query($sql);
+    // Si no se encontraron errores, proceder con el insert
+    if (!$error) {
+        $stmt = $mysqli->prepare("INSERT INTO usuarios (id_usuario, nombre, apellido, nickname, dni, direccion, pais, ciudad, cod_postal, fecha_nac, genero, correo, telefono, saldo, estado, rol_usuario) 
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '100', 'A', 'usuario')");
+        $stmt->bind_param("sssssssssssss", $id_usuario, $nombre, $apellido, $usuario, $dni, $direccion, $pais, $ciudad, $cod_postal, $fecha_nac, $genero, $email, $telefono);
+        $resultado = $stmt->execute();
 
-                if ($resultado) {
-                    // Hash de la contraseña
-                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        if ($resultado) {
+            // Hash de la contraseña
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                    // Insertar la contraseña en la tabla passwords
-                    $sql = "INSERT INTO passwords (id_usuario, contrasena) VALUES ('$id_usuario', '$hashed_password')";
-                    $resultado = $mysqli->query($sql);
+            // Insertar la contraseña en la tabla passwords
+            $stmt = $mysqli->prepare("INSERT INTO passwords (id_usuario, contrasena) VALUES (?, ?)");
+            $stmt->bind_param("ss", $id_usuario, $hashed_password);
+            $resultado = $stmt->execute();
 
-                    if ($resultado) {
-                        echo '<div class="alert alert-success" role="alert">Se ha registrado con éxito.</div>';
-                        echo "<div class='d-flex justify-content-center'>";
-                        echo "<p><a href='index.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-                        echo "</div>";
-                    } else {
-                        echo '<div class="alert alert-danger" role="alert">Ha habido un error al insertar la contraseña en la tabla passwords.</div>';
-                        echo "<div class='d-flex justify-content-center'>";
-                        echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-                        echo "</div>";
-                    }
-                } else {
-                    echo '<div class="alert alert-danger" role="alert">Ha habido un error al registrar el usuario.</div>';
-                    echo "<div class='d-flex justify-content-center'>";
-                    echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-                    echo "</div>";
-                }
+            if ($resultado) {
+                echo '<div class="alert alert-success" role="alert">Se ha registrado con éxito.</div>';
+                echo "<div class='d-flex justify-content-center'>";
+                echo "<p><a href='index.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+                echo "</div>";
             } else {
-                echo '<div class="alert alert-danger" role="alert">Las contraseñas no coinciden.</div>';
+                echo '<div class="alert alert-danger" role="alert">Ha habido un error al insertar la contraseña en la tabla passwords.</div>';
                 echo "<div class='d-flex justify-content-center'>";
                 echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                 echo "</div>";
             }
+            $stmt->close();
         } else {
+            echo '<div class="alert alert-danger" role="alert">Ha habido un error al registrar el usuario.</div>';
             echo "<div class='d-flex justify-content-center'>";
             echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
             echo "</div>";
         }
-        ?>
+    } else {
+        echo '<div class="alert alert-danger" role="alert">Las contraseñas no coinciden.</div>';
+        echo "<div class='d-flex justify-content-center'>";
+        echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+        echo "</div>";
+    }
+} else {
+    echo "<div class='d-flex justify-content-center'>";
+    echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
+    echo "</div>";
+}
+?>
     </div>
 </body>
 

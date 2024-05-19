@@ -117,7 +117,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         echo '<ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
                                     <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
-                                    <li><a class="dropdown-item" href="#">Monedero</a></li>
+                                    <li><a class="dropdown-item" href="#">Soporte</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                                     </ul>
@@ -179,7 +179,7 @@ if (!isset($_SESSION['id_usuario'])) {
                         $numero_negro = true;
                     }
                 ?>
-                <div class="border border-dark rounded-4 p-2">
+                <div class="">
                     <?php
                     echo "<div class='d-flex justify-content-center'>";
                     echo "<h2 class='fw-bold display-4'>$numero_aleatorio</h2>";
@@ -412,26 +412,11 @@ if (!isset($_SESSION['id_usuario'])) {
                                             echo "</div>";
                                         }
                                     }
-
-                                    echo "<p>Número ganador: $numero_aleatorio</p>";
-                                    echo "<p>Números seleccionados: $datos_seleccionados</p>";
-                                    echo "<p>Monto apostado: $monto_total</p>";
-                                    echo "<p>Recompensa: $premio</p>";
                                 } else {
                                     echo "<div class=''>";
                                     echo "<div class='alert alert-danger text-center display-6' role='alert'>Saldo insuficiente</div>";
                                     echo "</div>";
                                     exit();
-                                }
-                                echo "<p>Color apostado: $color_apostado</p>";
-
-                                // Mostrar el resultado de la apuesta
-                                if ($numero_rojo) {
-                                    echo "Número aleatorio ROJO";
-                                } elseif ($numero_negro) {
-                                    echo "Número aleatorio NEGRO";
-                                } else {
-                                    echo "Número aleatorio VERDE";
                                 }
                                 exit();
                             }
