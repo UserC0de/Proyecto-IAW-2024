@@ -320,7 +320,7 @@ if (!isset($_SESSION['id_usuario'])) {
                                         <h2 class="fw-bold">Color</h2>
                                     </div>
                                     <div class="mt-1">
-                                        <select class="form-select text-center" name="color">
+                                    <select class="form-select text-center" name="color">
                                             <option value="">Elige un color</option>
                                             <option value="rojo">ROJO</option>
                                             <option value="negro">NEGRO</option>
@@ -343,7 +343,7 @@ if (!isset($_SESSION['id_usuario'])) {
                                             <option value="4">4€</option>
                                             <option value="5">5€</option>
                                             <option value="10">10€</option>
-                                            <option value="20">20€</option>
+                                            <option value="25">25€</option>
                                             <option value="50">50€</option>
                                         </select>
                                     </div>

@@ -7,7 +7,7 @@
     <!-- Definir la viewport para que la página se ajuste al tamaño de la pantalla -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Título de la página -->
-    <title>Document</title>
+    <title>Login</title>
     <!-- Enlazar archivo JavaScript externo -->
     <script src="script.js"></script>
     <!-- Enlazar hoja de estilos CSS externa -->
@@ -43,7 +43,7 @@
 
                 // Verificar si la contraseña ingresada coincide con la contraseña almacenada en la base de datos
                 if (password_verify($password, $contrasena_hash)) {
-                    // Iniciar sesión y redirigir al usuario a la página de inicio
+                    // Iniciar sesión
                     session_start();
                     $_SESSION['id_usuario'] = $id_usuario;
                     $_SESSION['estado'] = $estado;
@@ -63,15 +63,15 @@
                     echo '<div class="alert alert-danger" role="alert">Contraseña incorrecta.</div>';
                     echo "<div class='d-flex justify-content-center'>";
                     echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-                    echo "</div>";
                 }
+                    echo "</div>";
             } else {
                 // Mostrar mensaje de error si no se encontró el usuario
                 echo '<div class="alert alert-danger" role="alert">El nombre de usuario ingresado no existe.</div>';
                 echo "<div class='d-flex justify-content-center'>";
                 echo "<p><a href='login.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
                 echo "</div>";
-            }
+            }   
         } else {
             // Mostrar mensaje de error si hubo un error en la consulta SQL
             echo '<div class="alert alert-danger" role="alert">Error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.</div>';

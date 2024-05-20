@@ -21,7 +21,7 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
-<body class="container pt-3 border border-4 rounded-4" style="background-color: #333333;">
+<body class="container pt-3" style="background-color: #333333;">
   <header>
     <nav class="navbar navbar-expand-lg navbar-light text-bg-warning rounded-4">
       <a class="navbar-brand" href="index.php">
