@@ -75,10 +75,10 @@ if (!isset($_SESSION['id_usuario'])) {
                             <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Ruleta</a>
+                            <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Blackjack</a>
+                            <a class="nav-link text-light" href="blog.php">Blog</a>
                         </li>
                     </ul>
                 </div>

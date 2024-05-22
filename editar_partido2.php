@@ -7,7 +7,7 @@ require 'conexion.php'; // Incluir el archivo de conexión
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Editar</title>
 </head>
 
 <body>
@@ -23,9 +23,6 @@ require 'conexion.php'; // Incluir el archivo de conexión
         $fecha = $_POST['fecha'];
         $hora = $_POST['hora'];
         $competencia = $_POST['competencia'];
-
-        // Realizar las operaciones de actualización en la base de datos
-        // Conectar a la base de datos (suponiendo que ya tienes una conexión establecida)
 
         // Iniciar transacción
         $mysqli->begin_transaction();
@@ -63,7 +60,7 @@ require 'conexion.php'; // Incluir el archivo de conexión
         // Cerrar la conexión a la base de datos
         $mysqli->close();
     } else {
-        // Si la solicitud no es POST, redirigir al usuario a una página de error o mostrar un mensaje de error
+        // Si la solicitud no es POST, redirigir al usuario a la pagina de index
         header("Location: index.php");
         exit();
     }

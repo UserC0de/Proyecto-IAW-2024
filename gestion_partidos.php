@@ -40,10 +40,10 @@ session_start();
                             <a class="nav-link text-light" href="apuestas.php">Apuestas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Ruleta</a>
+                            <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Blackjack</a>
+                            <a class="nav-link text-light" href="blog.php">Blog</a>
                         </li>
                     </ul>
                 </div>
@@ -176,7 +176,7 @@ session_start();
                                         // De lo contrario, no se necesita ordenar por saldo
                                         $order_by = " ORDER BY competicion"; // No se aplica ningún ordenamiento
                                     }
-                                    // Combinar todos los filtros con AND
+                                    // Combinar todos los filtros con AND y WHERE
                                     $where_clause = !empty($where) ? ' AND ' . implode(' AND ', $where) : '';
                                     $where_clause2 = !empty($where) ? ' WHERE ' . implode(' AND ', $where) : '';
                                     

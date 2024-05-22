@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                     <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="#">Blackjack</a>
+                                    <a class="nav-link text-light" href="blog.php">Blog</a>
                                 </li>
                             </ul>
                         </div>
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                                 </form>
                             </div>
                             <div class="d-flex justify-content-center mt-4">
-                                <a href="apuestas.php" class="btn btn-info text-light">Volver</a>
+                                <a href="gestion_partidos.php" class="btn btn-info text-light">Volver</a>
                             </div>
                         </div>
                     </div>

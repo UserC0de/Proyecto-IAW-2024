@@ -72,9 +72,6 @@ require 'conexion.php';
         // Verificar si el usuario tiene al menos 18 años
         if ($edad_str < 18) {
             echo '<div class="alert alert-danger" role="alert">Debes tener al menos 18 años para registrarte.</div>';
-            echo "<div class='d-flex justify-content-center'>";
-            echo "<p><a href='register.php'><button type='button' class='btn btn-primary'>Volver</button></a></p>";
-            echo "</div>";
             $error = true;
         }
 

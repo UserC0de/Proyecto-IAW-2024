@@ -48,31 +48,31 @@ session_start();
           </ul>
         </div>
         <?php
-// Verificar si hay una sesión iniciada
-if (isset($_SESSION['id_usuario'])) {
-  // Recuperar el ID de usuario de la sesión
-  $id_usuario = $_SESSION['id_usuario'];
+        // Verificar si hay una sesión iniciada
+        if (isset($_SESSION['id_usuario'])) {
+          // Recuperar el ID de usuario de la sesión
+          $id_usuario = $_SESSION['id_usuario'];
 
-  // Consultar la información del usuario y su saldo desde la base de datos
-  $sql = "SELECT nickname, saldo, estado, rol_usuario FROM usuarios WHERE id_usuario = '$id_usuario'";
-  $resultado = $mysqli->query($sql);
+          // Consultar la información del usuario y su saldo desde la base de datos
+          $sql = "SELECT nickname, saldo, estado, rol_usuario FROM usuarios WHERE id_usuario = '$id_usuario'";
+          $resultado = $mysqli->query($sql);
 
-  if ($resultado) {
-    // Verificar si se encontraron resultados
-    if ($resultado->num_rows > 0) {
-      $row = $resultado->fetch_assoc();
-      $nickname = $row['nickname'];
-      $saldo = $row['saldo'];
-      $estado = $row['estado'];
-      $rol_usuario = $row['rol_usuario'];
+          if ($resultado) {
+            // Verificar si se encontraron resultados
+            if ($resultado->num_rows > 0) {
+              $row = $resultado->fetch_assoc();
+              $nickname = $row['nickname'];
+              $saldo = $row['saldo'];
+              $estado = $row['estado'];
+              $rol_usuario = $row['rol_usuario'];
 
-      if ($estado === "A") {
-        if ($rol_usuario === "admin") {
-          // Mostrar el nombre de usuario y su saldo con iconos
-          echo '<div class="mx-3">';
-          echo "<div class='nav-item dropdown'>";
-          echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
-          echo '<ul class="dropdown-menu">
+              if ($estado === "A") {
+                if ($rol_usuario === "admin") {
+                  // Mostrar el nombre de usuario y su saldo con iconos
+                  echo '<div class="mx-3">';
+                  echo "<div class='nav-item dropdown'>";
+                  echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
+                  echo '<ul class="dropdown-menu">
               <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
               <li><a class="dropdown-item" href="gestion_usuarios.php">Gestión de Usuarios</a></li>
               <li><a class="dropdown-item" href="gestion_partidos.php">Gestión de Partidos</a></li>
@@ -82,12 +82,12 @@ if (isset($_SESSION['id_usuario'])) {
               <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
             </ul>
           </div>';
-        } else {
-          echo '</div>';
-          echo '<div class="mx-3">';
-          echo "<div class='nav-item dropdown'>";
-          echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
-          echo '<ul class="dropdown-menu">
+                } else {
+                  echo '</div>';
+                  echo '<div class="mx-3">';
+                  echo "<div class='nav-item dropdown'>";
+                  echo "<a class='nav-link text-light' href='#'>Saldo: $saldo €</a> <a class='nav-link dropdown-toggle text-light' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>$nickname <i class='fas fa-user'></i></a>";
+                  echo '<ul class="dropdown-menu">
                               <li><a class="dropdown-item" href="perfil_usuario.php">Perfil</a></li>
                               <li><a class="dropdown-item" href="mis_apuestas.php">Mis Apuestas</a></li>
                               <li><a class="dropdown-item" href="#">Soporte</a></li>
@@ -95,22 +95,22 @@ if (isset($_SESSION['id_usuario'])) {
                               <li><a class="dropdown-item" href="cerrar_sesion.php">Cerrar sesión</a></li>
                             </ul>
                           </div>';
+                }
+              } else {
+                header("location: usuario_bloq.php");
+              }
+            }
+          }
+          // Cerrar la conexión a la base de datos
+          $mysqli->close();
+        } else {
+          // Si no hay sesión iniciada, mostrar los botones de Login y Register
+          echo '<div class="m-2">';
+          echo '<a href="login.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Entrar</button></a>';
+          echo '<a href="register.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Registrarse</button></a>';
+          echo '</div>';
         }
-      } else {
-        header("location: usuario_bloq.php");
-      }
-    }
-  }
-  // Cerrar la conexión a la base de datos
-  $mysqli->close();
-} else {
-  // Si no hay sesión iniciada, mostrar los botones de Login y Register
-  echo '<div class="m-2">';
-  echo '<a href="login.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Entrar</button></a>';
-  echo '<a href="register.php"><button type="button" class="btn btn-light m-2 fw-bold text-warning">Registrarse</button></a>';
-  echo '</div>';
-}
-?>
+        ?>
       </div>
     </nav>
   </header>
@@ -149,7 +149,7 @@ if (isset($_SESSION['id_usuario'])) {
     <div class="d-flex justify-content-center">
       <div class="row row-cols-md-3 row-cols-sm-6 p-5 border border-5 rounded-5 justify-content-center mb-5">
         <div class="col p-4">
-          <a href="#" class="text-decoration-none">
+          <a href="apuestas.php" class="text-decoration-none">
             <div class="bg-light rounded-4">
               <div class="d-flex justify-content-center">
                 <img src="fotos/cardapuestas.png" alt="..." width="100%">
@@ -167,7 +167,7 @@ if (isset($_SESSION['id_usuario'])) {
         </div>
 
         <div class="col p-4">
-          <a href="#" class="text-decoration-none">
+          <a href="ruleta.php" class="text-decoration-none">
             <div class="bg-light rounded-4">
               <div class="d-flex justify-content-center">
                 <img src="fotos/cardcasino.png" alt="..." width="100%">
@@ -186,7 +186,7 @@ if (isset($_SESSION['id_usuario'])) {
 
 
         <div class="col p-4">
-          <a href="#" class="text-decoration-none">
+          <a href="blog.php" class="text-decoration-none">
             <div class="bg-light rounded-4">
               <div class="d-flex justify-content-center">
                 <img src="fotos/cardblog.png" alt="..." width="100%">

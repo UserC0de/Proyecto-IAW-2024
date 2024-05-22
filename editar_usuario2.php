@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Evitar inyección SQL utilizando consultas preparadas
     $sql = "UPDATE usuarios SET nombre=?, apellido=?, nickname=?, dni=?, rol_usuario=?, estado=?, saldo=? WHERE id_usuario=?";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("ssssssdi", $nombre, $apellido, $nickname, $dni, $rol_usuario, $estado, $saldo, $id_usuario); // Supongo que $id_usuario está definido en algún lugar
-
+    $stmt->bind_param("ssssssdi", $nombre, $apellido, $nickname, $dni, $rol_usuario, $estado, $saldo, $id_usuario);
+    
     // Ejecutar la consulta preparada
     if ($stmt->execute()) {
         // Redireccionar a la página de gestión de usuarios

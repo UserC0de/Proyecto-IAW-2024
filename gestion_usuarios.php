@@ -43,7 +43,7 @@ session_start();
                             <a class="nav-link text-light" href="ruleta.php">Ruleta</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Blackjack</a>
+                            <a class="nav-link text-light" href="blog.php">Blog</a>
                         </li>
                     </ul>
                 </div>
@@ -160,10 +160,10 @@ session_start();
                                     // Combinar todos los filtros con AND
                                     $where_clause = !empty($where) ? ' WHERE ' . implode(' AND ', $where) : '';
 
-                                    // Número de partidos por página
+                                    // Número de usuarios por página
                                     $usuarios_por_pagina = 5;
 
-                                    // Calcular el total de partidos
+                                    // Calcular el total de usuarios
                                     $sql_total_usuarios = "SELECT COUNT(*) AS total_usuarios FROM usuarios";
                                     $sql_total_usuarios .= $where_clause; // Utilizamos la misma cláusula WHERE que se aplica a la lista de usuarios
                                     $resultado_total_usuarios = $mysqli->query($sql_total_usuarios);
@@ -186,7 +186,7 @@ session_start();
 
                                     $resultado_usuarios = $mysqli->query($sql_usuarios);
 
-                                    // Generar la tabla de partidos
+                                    // Generar la tabla de usuarios
                                     echo '<table class="table table-striped caption-top">';
                                     echo "<caption>Lista total de usuarios ($total_usuarios)</caption>";
                                     echo '<thead>';
